@@ -1,0 +1,6 @@
+.idea
+.vscode
+*build*
+Google_tests
+googletest
+Doxygen

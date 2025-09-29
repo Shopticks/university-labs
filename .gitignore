@@ -1,0 +1,7 @@
+.idea
+.vscode
+*build*
+Google_tests
+googletest
+Doxygen
+*.DS_Store*

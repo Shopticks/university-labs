@@ -1,0 +1,202 @@
+Prefix(:=<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3/>)
+Prefix(owl:=<http://www.w3.org/2002/07/owl#>)
+Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)
+Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)
+Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)
+Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)
+
+
+Ontology(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3>
+
+Declaration(Class(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Day>))
+Declaration(Class(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Inner_planet>))
+Declaration(Class(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Orbit>))
+Declaration(Class(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Planet>))
+Declaration(Class(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Radius>))
+Declaration(Class(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Satellite>))
+Declaration(Class(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Smallest_planet>))
+Declaration(Class(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Star>))
+Declaration(Class(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Star_day>))
+Declaration(Class(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Star_system>))
+Declaration(Class(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Stellar_magnitude>))
+Declaration(Class(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Sun_day>))
+Declaration(ObjectProperty(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Be_less>))
+Declaration(ObjectProperty(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Circle_around>))
+Declaration(ObjectProperty(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Have_day>))
+Declaration(ObjectProperty(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Include_planet>))
+Declaration(ObjectProperty(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#The_closest_to>))
+Declaration(ObjectProperty(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#To_have_satellite>))
+Declaration(DataProperty(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Appeal_for>))
+Declaration(DataProperty(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Equal_for>))
+Declaration(DataProperty(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Wobble_for>))
+Declaration(NamedIndividual(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Apparent_stellar_magnitude_of_Mercury>))
+Declaration(NamedIndividual(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Ganymede>))
+Declaration(NamedIndividual(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Ganymede_radius>))
+Declaration(NamedIndividual(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Jupyter>))
+Declaration(NamedIndividual(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Mercury>))
+Declaration(NamedIndividual(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Mercury_radius>))
+Declaration(NamedIndividual(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Orbit_Earth>))
+Declaration(NamedIndividual(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Orbit_Mercury>))
+Declaration(NamedIndividual(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Saturn>))
+Declaration(NamedIndividual(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Solar_system>))
+Declaration(NamedIndividual(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Star_day_on_Mercury>))
+Declaration(NamedIndividual(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Sun>))
+Declaration(NamedIndividual(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Sun_day_on_Mercury>))
+Declaration(NamedIndividual(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Titan>))
+Declaration(NamedIndividual(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Titan_radius>))
+############################
+#   Object Properties
+############################
+
+# Object Property: <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Be_less> (<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Be_less>)
+
+ObjectPropertyDomain(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Be_less> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Radius>)
+ObjectPropertyRange(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Be_less> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Radius>)
+
+# Object Property: <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Circle_around> (<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Circle_around>)
+
+ObjectPropertyDomain(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Circle_around> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Planet>)
+ObjectPropertyRange(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Circle_around> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Star>)
+
+# Object Property: <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Have_day> (<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Have_day>)
+
+ObjectPropertyDomain(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Have_day> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Planet>)
+ObjectPropertyRange(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Have_day> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Day>)
+
+# Object Property: <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Include_planet> (<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Include_planet>)
+
+ObjectPropertyDomain(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Include_planet> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Star_system>)
+ObjectPropertyRange(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Include_planet> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Planet>)
+
+# Object Property: <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#The_closest_to> (<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#The_closest_to>)
+
+ObjectPropertyDomain(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#The_closest_to> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Planet>)
+ObjectPropertyRange(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#The_closest_to> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Star>)
+
+# Object Property: <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#To_have_satellite> (<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#To_have_satellite>)
+
+ObjectPropertyDomain(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#To_have_satellite> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Planet>)
+ObjectPropertyRange(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#To_have_satellite> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Satellite>)
+
+
+############################
+#   Data Properties
+############################
+
+# Data Property: <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Appeal_for> (<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Appeal_for>)
+
+DataPropertyDomain(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Appeal_for> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Planet>)
+DataPropertyRange(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Appeal_for> xsd:string)
+
+# Data Property: <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Equal_for> (<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Equal_for>)
+
+DataPropertyDomain(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Equal_for> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Day>)
+DataPropertyRange(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Equal_for> xsd:string)
+
+# Data Property: <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Wobble_for> (<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Wobble_for>)
+
+DataPropertyDomain(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Wobble_for> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Stellar_magnitude>)
+DataPropertyRange(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Wobble_for> xsd:string)
+
+
+
+############################
+#   Classes
+############################
+
+# Class: <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Inner_planet> (<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Inner_planet>)
+
+SubClassOf(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Inner_planet> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Planet>)
+
+# Class: <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Smallest_planet> (<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Smallest_planet>)
+
+SubClassOf(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Smallest_planet> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Inner_planet>)
+
+# Class: <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Star_day> (<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Star_day>)
+
+SubClassOf(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Star_day> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Day>)
+
+# Class: <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Sun_day> (<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Sun_day>)
+
+SubClassOf(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Sun_day> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Day>)
+
+
+############################
+#   Named Individuals
+############################
+
+# Individual: <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Apparent_stellar_magnitude_of_Mercury> (<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Apparent_stellar_magnitude_of_Mercury>)
+
+ClassAssertion(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Stellar_magnitude> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Apparent_stellar_magnitude_of_Mercury>)
+DataPropertyAssertion(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Wobble_for> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Apparent_stellar_magnitude_of_Mercury> "-1.9 - 5.5")
+
+# Individual: <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Ganymede> (<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Ganymede>)
+
+ClassAssertion(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Satellite> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Ganymede>)
+
+# Individual: <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Ganymede_radius> (<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Ganymede_radius>)
+
+ClassAssertion(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Radius> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Ganymede_radius>)
+
+# Individual: <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Jupyter> (<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Jupyter>)
+
+ClassAssertion(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Planet> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Jupyter>)
+ObjectPropertyAssertion(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#To_have_satellite> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Jupyter> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Ganymede>)
+
+# Individual: <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Mercury> (<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Mercury>)
+
+ClassAssertion(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Smallest_planet> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Mercury>)
+ObjectPropertyAssertion(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Have_day> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Mercury> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Star_day_on_Mercury>)
+ObjectPropertyAssertion(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Have_day> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Mercury> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Sun_day_on_Mercury>)
+ObjectPropertyAssertion(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#The_closest_to> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Mercury> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Sun>)
+DataPropertyAssertion(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Appeal_for> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Mercury> "88 Earth days")
+
+# Individual: <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Mercury_radius> (<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Mercury_radius>)
+
+ClassAssertion(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Radius> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Mercury_radius>)
+ObjectPropertyAssertion(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Be_less> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Mercury_radius> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Ganymede_radius>)
+ObjectPropertyAssertion(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Be_less> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Mercury_radius> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Titan_radius>)
+DataPropertyAssertion(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Wobble_for> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Mercury_radius> "2439.7 ± 1,0 km")
+
+# Individual: <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Orbit_Earth> (<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Orbit_Earth>)
+
+ClassAssertion(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Orbit> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Orbit_Earth>)
+
+# Individual: <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Orbit_Mercury> (<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Orbit_Mercury>)
+
+ClassAssertion(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Orbit> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Orbit_Mercury>)
+
+# Individual: <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Saturn> (<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Saturn>)
+
+ClassAssertion(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Planet> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Saturn>)
+ObjectPropertyAssertion(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#To_have_satellite> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Saturn> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Titan>)
+
+# Individual: <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Solar_system> (<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Solar_system>)
+
+ClassAssertion(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Star_system> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Solar_system>)
+ObjectPropertyAssertion(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Include_planet> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Solar_system> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Mercury>)
+
+# Individual: <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Star_day_on_Mercury> (<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Star_day_on_Mercury>)
+
+ClassAssertion(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Star_day> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Star_day_on_Mercury>)
+DataPropertyAssertion(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Equal_for> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Star_day_on_Mercury> "58,65 Earth day")
+
+# Individual: <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Sun> (<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Sun>)
+
+ClassAssertion(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Star> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Sun>)
+
+# Individual: <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Sun_day_on_Mercury> (<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Sun_day_on_Mercury>)
+
+ClassAssertion(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Sun_day> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Sun_day_on_Mercury>)
+DataPropertyAssertion(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Equal_for> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Sun_day_on_Mercury> "176 Earth day")
+
+# Individual: <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Titan> (<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Titan>)
+
+ClassAssertion(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Satellite> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Titan>)
+
+# Individual: <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Titan_radius> (<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Titan_radius>)
+
+ClassAssertion(<http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Radius> <http://www.semanticweb.org/shoptick/ontologies/2025/4/untitled-ontology-3#Titan_radius>)
+
+
+)

@@ -1,0 +1,16 @@
+for %%f in ("%folder%*") do (
+    set temp=%folder%temp.txt
+    echo. > %temp%
+    echo -----------------------------
+    echo Check file: %%f
+
+    for /f "delims=" %%A in ('type "%%f"') do (
+        set "string=%%A"
+        set "modified=!string:123=321!"
+        echo !modified!>>"%temp%"
+    )
+    move %temp% %%f
+    rm -rf %temp%
+)
+
+rem get-content %2%%f | %{$_ -replace "123","321"} >   
