@@ -1,87 +1,40 @@
-#include <iostream>
-#include <thread>
-#include <cmath>
-#include <functional>
-#include <queue>
-#include <mutex>
-#include <condition_variable>
-#include <atomic>
-#include <fstream>
-#include <chrono>
+#include "main.h"
 
-class Point {
-public:
-    double x;
-    double y;
-    std::chrono::steady_clock::time_point compute_time;
-    std::chrono::steady_clock::time_point write_time;
+std::atomic<bool> done_computing{false}; // Indicator of the end of the first thread
+std::atomic<bool> done_writing{false}; // Indicator of the end of the second thread
 
-    Point(double x_val, double y_val)
-        : x(x_val), y(y_val), compute_time(std::chrono::steady_clock::now()) {}
-
-    Point(Point&& other) noexcept
-        : x(other.x),
-          y(other.y),
-          compute_time(other.compute_time),
-          write_time(other.write_time) {}
-
-    void set_write_time() {
-        write_time = std::chrono::steady_clock::now();
-    }
-};
-
-template<typename T>
-class SafeQueue {
-private:
-    mutable std::mutex mut;
-    std::queue<T> data_queue;
-    std::condition_variable data_cond;
-
-public:
-    void push(T item) {
-        std::lock_guard<std::mutex> lk(mut);
-        data_queue.push(std::move(item));
-        data_cond.notify_one();
-    }
-
-    bool wait_and_pop(T& item, std::chrono::milliseconds timeout = std::chrono::milliseconds(100)) {
-        std::unique_lock<std::mutex> lk(mut);
-        bool ready = data_cond.wait_for(lk, timeout, [this] { return !data_queue.empty(); });
-        if (ready) {
-            item = std::move(data_queue.front());
-            data_queue.pop();
-            return true;
-        }
-        return false;
-    }
-
-    bool try_pop(T& item) {
-        std::lock_guard<std::mutex> lk(mut);
-        if (data_queue.empty()) {
-            return false;
-        }
-        item = std::move(data_queue.front());
-        data_queue.pop();
-        return true;
-    }
-
-    bool empty() const {
-        std::lock_guard<std::mutex> lk(mut);
-        return data_queue.empty();
-    }
-};
-
+/**
+ * @details The function by which the calculations will be carried out
+ */
 double F(double value) {
     return std::sin(value);
 }
 
-std::atomic<bool> done_computing{false};
-std::atomic<bool> done_writing{false};
+/**
+ * @brief Compute thread
+ * @details A computational thread that stores calculation information in the queue
+ */
+void compute_thread(SafeQueue<std::shared_ptr<Point>>& compute_queue, int n_points, double step) {
+    for (int i = 0; i < n_points; ++i) {
+        double x = i * step;
+        double y = F(x);
+        auto point = std::make_shared<Point>(x, y); // Add results for other threads
+        compute_queue.push(point); // Safe pushing
 
+        // !!DEBUG ONLY!!
+        // std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    }
+}
+
+/**
+ * @brief Write computing results thread
+ * @details A thread that writes results to the specified file
+ */
 void write_thread(SafeQueue<std::shared_ptr<Point>>& in_queue,
                   SafeQueue<std::shared_ptr<Point>>& out_queue,
                   const std::string& output_file) {
 
+    // Create and initialize stream for an output file
     std::ofstream file(output_file);
 
     if (!file.is_open()) {
@@ -89,20 +42,32 @@ void write_thread(SafeQueue<std::shared_ptr<Point>>& in_queue,
         return;
     }
 
+
     while (true) {
         std::shared_ptr<Point> p;
-        if (in_queue.wait_and_pop(p)) {
+        if (in_queue.wait_and_pop(p)) { // Try to pop front element
+            // Write it to file
             file << p->x << " " << p->y << "\n";
             file.flush();
+
+            // Update write time
             p->set_write_time();
+
+            // Push for log thread
             out_queue.push(p);
+
         } else if (done_computing && in_queue.empty()) {
             break;
         }
     }
 }
 
+/**
+ * @brief Log computed and writed time
+ * @details A thread that writes logs to the specified file
+ */
 void log_thread(SafeQueue<std::shared_ptr<Point>>& in_queue, const std::string& log_file) {
+    // Create and initialize stream for a log file
     std::ofstream log(log_file);
     if (!log.is_open()) {
         std::cerr << "Cannot open log file\n";
@@ -111,36 +76,32 @@ void log_thread(SafeQueue<std::shared_ptr<Point>>& in_queue, const std::string& 
 
     while (true) {
         std::shared_ptr<Point> p;
-        if (in_queue.wait_and_pop(p)) {
+        if (in_queue.wait_and_pop(p)) { // Try to pop front element
+            
+            // Conversion of time into a presentable view
             auto compute_ms = std::chrono::duration_cast<std::chrono::milliseconds>(
                 p->compute_time.time_since_epoch()).count();
             auto write_ms = std::chrono::duration_cast<std::chrono::milliseconds>(
                 p->write_time.time_since_epoch()).count();
+            auto required_time = std::chrono::duration_cast<std::chrono::milliseconds>(
+                p->write_time.time_since_epoch() - p->compute_time.time_since_epoch()).count();
 
-            log << "Computed at: " << compute_ms << " ms, Written at: " << write_ms << " ms\n";
+            // Write time info into file
+            log << "Computed at: " << compute_ms 
+                << " ms, Written at: " << write_ms << " ms. " 
+                << "Time required: " << required_time << " ms\n";
             log.flush();
+
         } else if (done_writing && in_queue.empty()) {
             break;
         }
     }
 }
 
-void compute_thread(SafeQueue<std::shared_ptr<Point>>& compute_queue, int n_points, double step) {
-    for (int i = 0; i < n_points; ++i) {
-        double x = i * step;
-        double y = F(x);
-        auto point = std::make_shared<Point>(x, y);
-        compute_queue.push(point);
-
-        // !DEBUG_ONLY
-        // std::this_thread::sleep_for(std::chrono::milliseconds(10));
-    }
-}
-
 int main() {
     auto start = std::chrono::system_clock::now();
 
-    const int N_POINTS = 1'000'000;
+    const int N_POINTS = 100'000;
     const double STEP = 0.1;
     const std::string OUTPUT_FILE = "output.txt";
     const std::string LOG_FILE = "log.txt";
@@ -164,7 +125,7 @@ int main() {
 
     auto end = std::chrono::system_clock::now();
     auto seconds = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
-    std::cout << "Execution time: " << seconds << " milliseconds\n";    
+    std::cout << "Execution time: " << seconds << " ms" << std::endl;
 
     return 0;
 }
