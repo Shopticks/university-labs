@@ -1,12 +1,13 @@
 #include "main.h"
 
 std::atomic<bool> done_computing{false}; // Indicator of the end of the first thread
-std::atomic<bool> done_writing{false}; // Indicator of the end of the second thread
+std::atomic<bool> done_writing{false};   // Indicator of the end of the second thread
 
 /**
  * @details The function by which the calculations will be carried out
  */
-double F(double value) {
+double F(double value)
+{
     return std::sin(value);
 }
 
@@ -14,12 +15,14 @@ double F(double value) {
  * @brief Compute thread
  * @details A computational thread that stores calculation information in the queue
  */
-void compute_thread(SafeQueue<std::shared_ptr<Point>>& compute_queue, int n_points, double step) {
-    for (int i = 0; i < n_points; ++i) {
+void compute_thread(SafeQueue<std::shared_ptr<Point>> &compute_queue, int n_points, double step)
+{
+    for (int i = 0; i < n_points; ++i)
+    {
         double x = i * step;
         double y = F(x);
         auto point = std::make_shared<Point>(x, y); // Add results for other threads
-        compute_queue.push(point); // Safe pushing
+        compute_queue.push(point);                  // Safe pushing
 
         // !!DEBUG ONLY!!
         // std::this_thread::sleep_for(std::chrono::milliseconds(10));
@@ -30,22 +33,25 @@ void compute_thread(SafeQueue<std::shared_ptr<Point>>& compute_queue, int n_poin
  * @brief Write computing results thread
  * @details A thread that writes results to the specified file
  */
-void write_thread(SafeQueue<std::shared_ptr<Point>>& in_queue,
-                  SafeQueue<std::shared_ptr<Point>>& out_queue,
-                  const std::string& output_file) {
+void write_thread(SafeQueue<std::shared_ptr<Point>> &in_queue,
+                  SafeQueue<std::shared_ptr<Point>> &out_queue,
+                  const std::string &output_file)
+{
 
     // Create and initialize stream for an output file
     std::ofstream file(output_file);
 
-    if (!file.is_open()) {
+    if (!file.is_open())
+    {
         std::cerr << "Cannot open output file\n";
         return;
     }
 
-
-    while (true) {
+    while (true)
+    {
         std::shared_ptr<Point> p;
-        if (in_queue.wait_and_pop(p)) { // Try to pop front element
+        if (in_queue.wait_and_pop(p))
+        { // Try to pop front element
             // Write it to file
             file << p->x << " " << p->y << "\n";
             file.flush();
@@ -55,8 +61,9 @@ void write_thread(SafeQueue<std::shared_ptr<Point>>& in_queue,
 
             // Push for log thread
             out_queue.push(p);
-
-        } else if (done_computing && in_queue.empty()) {
+        }
+        else if (done_computing && in_queue.empty())
+        {
             break;
         }
     }
@@ -66,42 +73,51 @@ void write_thread(SafeQueue<std::shared_ptr<Point>>& in_queue,
  * @brief Log computed and writed time
  * @details A thread that writes logs to the specified file
  */
-void log_thread(SafeQueue<std::shared_ptr<Point>>& in_queue, const std::string& log_file) {
+void log_thread(SafeQueue<std::shared_ptr<Point>> &in_queue, const std::string &log_file)
+{
     // Create and initialize stream for a log file
     std::ofstream log(log_file);
-    if (!log.is_open()) {
+    if (!log.is_open())
+    {
         std::cerr << "Cannot open log file\n";
         return;
     }
 
-    while (true) {
+    while (true)
+    {
         std::shared_ptr<Point> p;
-        if (in_queue.wait_and_pop(p)) { // Try to pop front element
-            
+        if (in_queue.wait_and_pop(p))
+        { // Try to pop front element
+
             // Conversion of time into a presentable view
             auto compute_ms = std::chrono::duration_cast<std::chrono::milliseconds>(
-                p->compute_time.time_since_epoch()).count();
+                                  p->compute_time.time_since_epoch())
+                                  .count();
             auto write_ms = std::chrono::duration_cast<std::chrono::milliseconds>(
-                p->write_time.time_since_epoch()).count();
+                                p->write_time.time_since_epoch())
+                                .count();
             auto required_time = std::chrono::duration_cast<std::chrono::milliseconds>(
-                p->write_time.time_since_epoch() - p->compute_time.time_since_epoch()).count();
+                                     p->write_time.time_since_epoch() - p->compute_time.time_since_epoch())
+                                     .count();
 
             // Write time info into file
-            log << "Computed at: " << compute_ms 
-                << " ms, Written at: " << write_ms << " ms. " 
+            log << "Computed at: " << compute_ms
+                << " ms, Written at: " << write_ms << " ms. "
                 << "Time required: " << required_time << " ms\n";
             log.flush();
-
-        } else if (done_writing && in_queue.empty()) {
+        }
+        else if (done_writing && in_queue.empty())
+        {
             break;
         }
     }
 }
 
-int main() {
+int main()
+{
     auto start = std::chrono::system_clock::now();
 
-    const int N_POINTS = 100'000;
+    const int N_POINTS = 1'000'000;
     const double STEP = 0.1;
     const std::string OUTPUT_FILE = "output.txt";
     const std::string LOG_FILE = "log.txt";

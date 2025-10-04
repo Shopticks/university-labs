@@ -1,6 +1,0 @@
- 
-ReadOnlyFile.txt
-result.txt
-Lab5.sh
-WVlad.bat
-ReadWriteFile.txt
