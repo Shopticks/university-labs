@@ -1,0 +1,37 @@
+rrel_semantic_analysis
+=> nrel_main_idtf:
+  [semantic analysis']
+  (*
+    <- lang_en;;
+  *);
+=> nrel_main_idtf:
+  [семантический анализ']
+  (*
+    <- lang_ru;;
+  *);
+<- rrel_explored_relation:
+  subject_area_of_artificial_intelligence;
+<= nrel_inclusion:
+  rrel_membership;
+=> nrel_definitional_domain:
+  ...
+  (*
+    <= nrel_set_union: {
+      concept_syntactic_structures;
+      concept_representation_of_meaning
+    };;
+  *);
+=> nrel_first_domain:
+  concept_syntactic_structures;
+=> nrel_second_domain:
+  concept_representation_of_meaning;
+=> nrel_inclusion:
+  semantic_analysis;
+  verbal_relations;
+  semantic_binding;
+=> nrel_definition:
+  [Семантический анализ — это подраздел обработки естественного языка, целью которого является понимание смысла естественного языка.]
+  (*
+    <- lang_ru;;
+  *);;
+  
