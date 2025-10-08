@@ -1,11 +1,11 @@
 concept_natural_language_processing
 => nrel_main_idtf: 
-  [Обработка естественного языка]
+  [обработка естественного языка]
   (*
     <- lang_ru;;
   *);
 => nrel_main_idtf:
-  [Natural language processing]
+  [natural language processing]
   (*
     <- lang_en;;
   *);
@@ -17,10 +17,10 @@ concept_natural_language_processing
 <-  rrel_explored_concept:
   subject_area_of_artificial_intelligence;
 <= nrel_inclusion:
-  concept_of_artificial_intelligence;
-  concept_of_mathematical_linguistics;
+  artificial_intelligence_method;
+  mathematical_linguistics_method;
 => nrel_inclusion:
-  concept_large_language_models;
+  concept_large_language_model;
 => nrel_definition:
   [Обработка естественного языка - общее направление искусственного интеллекта и математической лингвистики. Оно изучает проблемы компьютерного анализа и синтеза текстов на естественных языках.]
   (*
