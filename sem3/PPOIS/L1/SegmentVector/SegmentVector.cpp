@@ -29,11 +29,11 @@ Point SegmentVector::getVectorCoords() const {
 }
 
 double SegmentVector::length() const {
-    return std::sqrt(
-        std::pow(rightCorner.x - leftCorner.x, 2) +
-        std::pow(rightCorner.y - leftCorner.y, 2) +
-        std::pow(rightCorner.z - leftCorner.z, 2)
-        );
+    double dx = rightCorner.x - leftCorner.x;
+    double dy = rightCorner.y - leftCorner.y;
+    double dz = rightCorner.z - leftCorner.z;
+
+    return std::sqrt(dx * dx + dy * dy + dz * dz);
 }
 
 SegmentVector SegmentVector::operator+(const SegmentVector& other){
@@ -256,17 +256,14 @@ std::ostream& operator<<(std::ostream &out, const SegmentVector &v) {
 }
 
 std::istream& operator>>(std::istream& in, SegmentVector& v) {
-    int x1, y1, z1,
-        x2, y2, z2;
+    double x1, y1, z1,
+           x2, y2, z2;
 
     in  >> x1 >> y1 >> z1
         >> x2 >> y2 >> z2;
 
-    Point left(x1, y1, z1);
-    Point right(x2, y2, z2);
-
-    v.leftCorner = left;
-    v.rightCorner = right;
+    v.leftCorner = Point(x1, y1, z1);
+    v.rightCorner = Point(x2, y2, z2);
 
     return in;
 }

@@ -28,6 +28,13 @@ Polynomial::Polynomial(const Polynomial &other) : size(other.size) {
     this->normalize();
 }
 
+Polynomial::Polynomial(Polynomial&& other) noexcept
+    : coefficients(other.coefficients), size(other.size) {
+    other.coefficients = nullptr;
+    other.size = 0;
+}
+
+
 bool Polynomial::isPolynomialZero() const {
     return calculateDegree() == -1;
 }
@@ -81,30 +88,8 @@ void Polynomial::normalize() {
 }
 
 Polynomial Polynomial::operator+(const Polynomial& other) {
-    size_t maxSize = std::max(this->size, other.size);
-    size_t minSize = std::min(this->size, other.size);
-
-    auto* newCoefficients = new double[maxSize]();
-
-    for (size_t i = 0; i < minSize; ++i) {
-        newCoefficients[i] = this->coefficients[i] + other.coefficients[i];
-    }
-
-    if (this->size > other.size) {
-        for (size_t i = minSize; i < this->size; ++i) {
-            newCoefficients[i] = this->coefficients[i];
-        }
-    }
-    else if (other.size > this->size) {
-        for (size_t i = minSize; i < other.size; ++i) {
-            newCoefficients[i] = other.coefficients[i];
-        }
-    }
-
-    Polynomial result(maxSize, newCoefficients);
-
-    result.normalize();
-
+    Polynomial result(*this);
+    result += other;
     return result;
 }
 
@@ -131,30 +116,8 @@ Polynomial& Polynomial::operator+=(const Polynomial& other) {
 }
 
 Polynomial Polynomial::operator-(const Polynomial& other) {
-    size_t maxSize = std::max(this->size, other.size);
-    size_t minSize = std::min(this->size, other.size);
-
-    auto* newCoefficients = new double[maxSize]();
-
-    for (size_t i = 0; i < minSize; ++i) {
-        newCoefficients[i] = this->coefficients[i] - other.coefficients[i];
-    }
-
-    if (this->size > other.size) {
-        for (size_t i = minSize; i < this->size; ++i) {
-            newCoefficients[i] = this->coefficients[i];
-        }
-    }
-    else if (other.size > this->size) {
-        for (size_t i = minSize; i < other.size; ++i) {
-            newCoefficients[i] = -other.coefficients[i];
-        }
-    }
-
-    Polynomial result(maxSize, newCoefficients);
-
-    result.normalize();
-
+    Polynomial result(*this);
+    result -= other;
     return result;
 }
 
