@@ -1,0 +1,38 @@
+@search_developer_by_model_template = {
+    rrel_init_template: {
+        rrel_template: [*
+            @input_param1 = (.._model <-_ concept_nlp_model);;
+            rrel_library _-> (.._model _-> .._library);;
+            @output_param1 = (.._library <-_ concept_nlp_library);;
+        *];
+        rrel_template_input_params: { 
+            @input_param1 
+        };
+        rrel_template_output_params: { 
+            @output_param1 
+        }
+    } (* <- nrel_search_set_template;; *);
+    rrel_next_template: {
+        rrel_init_template: {
+            rrel_template: [*
+                @input_param1 = (.._library <-_ concept_nlp_library);;
+                nrel_developer _-> (.._library _-> .._developer);;
+                @output_param1 = (.._developer <-_ concept_company);;
+            *];
+            rrel_template_input_params: { 
+                @input_param1 
+            };
+            rrel_template_output_params: { 
+                @output_param1 
+            }
+        } (* <- nrel_search_set_template;; *)
+    } (* <- nrel_fixed_search_strategy_template;; *)
+};;
+
+@search_developer_by_model_template
+<- nrel_fixed_search_strategy_template;
+=> nrel_main_idtf:
+    [Шаблон поиска разработчика по модели]
+    (* 
+        <- lang_ru;; 
+    *);;

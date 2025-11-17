@@ -1,0 +1,7 @@
+concept_nlp_task
+<- sc_node_class;
+=> nrel_main_idtf:
+    [задача обработки естественного языка]
+    (*
+        <- lang_ru;;
+    *);;

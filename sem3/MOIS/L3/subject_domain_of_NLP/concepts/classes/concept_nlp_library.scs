@@ -1,0 +1,7 @@
+concept_nlp_library
+<- sc_node_class;
+=> nrel_main_idtf:
+    [библиотека обработки естественного языка]
+    (*
+        <- lang_ru;;
+    *);;

@@ -1,0 +1,39 @@
+explosion_ai
+<- concept_company;
+=> nrel_main_idtf:
+    [Explosion AI]
+    (*
+        <- lang_en;;
+    *);;
+
+hugging_face
+<- concept_company;
+=> nrel_main_idtf:
+    [Hugging Face]
+    (*
+        <- lang_en;;
+    *);;
+
+google
+<- concept_company;
+=> nrel_main_idtf:
+    [Google]
+    (*
+        <- lang_en;;
+    *);;
+
+openai
+<- concept_company;
+=> nrel_main_idtf:
+    [OpenAI]
+    (*
+        <- lang_en;;
+    *);;
+
+facebook
+<- concept_company;
+=> nrel_main_idtf:
+    [Facebook]
+    (*
+        <- lang_en;;
+    *);;

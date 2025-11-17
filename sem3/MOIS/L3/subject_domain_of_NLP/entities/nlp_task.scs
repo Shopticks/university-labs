@@ -1,0 +1,84 @@
+task_named_entity_recognition
+<- concept_nlp_task;
+=> nrel_main_idtf:
+	[Распознавание именованных сущностей]
+	(*
+		<- lang_ru;;
+	*);
+-> rrel_model:
+	spaCy_model;
+	BERT_model;;
+
+task_question_answering
+<- concept_nlp_task;
+=> nrel_main_idtf:
+	[Вопросно-ответная система]
+	(*
+		<- lang_ru;;
+	*);
+-> rrel_model:
+	GPT3_model;
+	GPT4_model;
+    GPT5_model;
+	BERT_model;
+	Gemini2.5_model;;
+
+task_text_summarization
+<- concept_nlp_task;
+=> nrel_main_idtf:
+	[Суммаризация текста]
+	(*
+		<- lang_ru;;
+	*);
+-> rrel_model:
+	GPT3_model;
+	GPT4_model;
+    GPT5_model;
+	BART_Large_MNLI_model;
+	Gemini2.5_model;;
+
+task_machine_translation
+<- concept_nlp_task;
+=> nrel_main_idtf:
+	[Машинный перевод]
+	(*
+		<- lang_ru;;
+	*);
+-> rrel_model:
+	GPT3_model;
+	BART_Large_MNLI_model;;
+
+task_sentiment_analysis
+<- concept_nlp_task;
+=> nrel_main_idtf:
+	[Анализ тональности]
+	(*
+		<- lang_ru;;
+	*);
+-> rrel_model:
+	BERT_model;
+	BART_Large_MNLI_model;;
+
+task_text_classification
+<- concept_nlp_task;
+=> nrel_main_idtf:
+	[Классификация текста]
+	(*
+		<- lang_ru;;
+	*);
+-> rrel_model:
+	BERT_model;;
+
+task_natural_language_inference
+<- concept_nlp_task;
+=> nrel_main_idtf:
+	[Понимание естественного языка]
+	(*
+		<- lang_ru;;
+	*);
+-> rrel_model:
+GPT3_model;
+    GPT4_model;
+    GPT5_model;
+    Gemini2.5_model;
+	BART_Large_MNLI_model;;

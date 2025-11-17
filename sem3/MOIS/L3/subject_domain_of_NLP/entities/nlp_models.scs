@@ -1,0 +1,109 @@
+spaCy_model
+<- concept_nlp_model;
+=> nrel_main_idtf:
+    [Модель spaCy]
+    (*
+        <- lang_ru;;
+    *);
+-> rrel_library: spaCy_library;;
+
+BERT_model
+<- concept_nlp_model;
+=> nrel_main_idtf:
+    [Модель BERT]
+    (*
+        <- lang_ru;;
+    *);
+-> rrel_library: transformers_library;;
+
+GPT4_model
+<- concept_nlp_model;
+=> nrel_main_idtf:
+    [Модель GPT 4]
+    (*
+        <- lang_ru;;
+    *);
+-> rrel_library: custom_openai_library;;
+
+GPT3_model
+<- concept_nlp_model;
+=> nrel_main_idtf:
+    [Модель GPT 3]
+    (*
+        <- lang_ru;;
+    *);
+-> rrel_library: custom_openai_library;;
+
+GPT5_model
+<- concept_nlp_model;
+=> nrel_main_idtf:
+    [Модель GPT 5]
+    (*
+        <- lang_ru;;
+    *);
+-> rrel_library: custom_openai_library;;
+
+Gemini2.5_model
+<- concept_nlp_model;
+=> nrel_main_idtf:
+    [Модель Gemini 2.5]
+    (*
+        <- lang_ru;;
+    *);
+-> rrel_library: predecessor_model_library;;
+
+BART_Large_MNLI_model
+<- concept_nlp_model;
+=> nrel_main_idtf:
+    [Модель BART многожанрового естественного языка]
+    (*
+        <- lang_ru;;
+    *);
+-> rrel_library: bart_library;;
+
+
+
+spaCy_library
+<- concept_nlp_library;
+=> nrel_main_idtf:
+    [Библиотека spaCy]
+    (*
+        <- lang_ru;;
+    *);
+-> nrel_developer: explosion_ai;;
+
+transformers_library
+<- concept_nlp_library;
+=> nrel_main_idtf:
+    [Библиотека Transformers]
+    (*
+        <- lang_ru;;
+    *);
+-> nrel_developer: hugging_face;;
+
+custom_openai_library
+<- concept_nlp_library;
+=> nrel_main_idtf:
+    [Пользовательская библиотека OpenAI]
+    (*
+        <- lang_ru;;
+    *);
+-> nrel_developer: openai;;
+
+predecessor_model_library
+<- concept_nlp_library;
+=> nrel_main_idtf:
+    [Библиотека модели Predecessor]
+    (*
+        <- lang_ru;;
+    *);
+-> nrel_developer: google;;
+
+bart_library
+<- concept_nlp_library;
+=> nrel_main_idtf:
+    [Библиотека BART]
+    (*
+        <- lang_ru;;
+    *);
+-> nrel_developer: facebook;;
