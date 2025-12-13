@@ -1,0 +1,66 @@
+Требования: чистый python, только встроенные функции.
+Вариант: Компания по сбыту лекарственных препаратов
+Задание: 50 классов, 150 полей, 100 уникальных поведений (перевод денег с одной карты на другую, проверка верного пароля и тд),
+код должен включать 30 примеров ассоциаций классов (включения одного класса в другой в качестве поле или параметров метода)
+код должен включать 12 персональных исключений
+
+
+Предполагаемая структура
+.
+├── docs/
+├── src/
+│   └── pharma_distributor/
+│       ├── __init__.py
+│       ├── main.py
+│       ├── config.py
+│       ├── exceptions.py
+│       │
+│       ├── common/
+│       │   ├── __init__.py
+│       │   └── units.py
+│       │
+│       ├── utils/
+│       │   ├── __init__.py
+│       │   ├── validators.py
+│       │   ├── converters.py
+│       │   ├── formatters.py
+│       │   ├── generators.py
+│       │   └── logger.py
+│       │
+│       ├── auth/
+│       │   ├── __init__.py
+│       │   ├── users.py
+│       │   ├── credentials.py
+│       │   └── security.py
+│       │
+│       ├── catalog/
+│       │   ├── __init__.py
+│       │   ├── products.py
+│       │   ├── categories.py
+│       │   └── details.py
+│       │
+│       ├── inventory/
+│       │   ├── __init__.py
+│       │   ├── warehouses.py
+│       │   └── stock.py
+│       │
+│       ├── finance/
+│       │   ├── __init__.py
+│       │   ├── payments.py
+│       │   ├── transactions.py
+│       │   └── wallets.py
+│       │
+│       ├── logistics/
+│       │   ├── __init__.py
+│       │   ├── cargo.py
+│       │   ├── transport.py
+│       │   ├── routing.py
+│       │   └── personnel.py
+│       │
+│       └── sales/
+│           ├── __init__.py
+│           ├── orders.py
+│           ├── customers.py
+│           └── contracts.py
+│
+└── tests/
