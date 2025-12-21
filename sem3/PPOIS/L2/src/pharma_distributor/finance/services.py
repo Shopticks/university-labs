@@ -1,7 +1,7 @@
 from decimal import Decimal
 from dataclasses import dataclass, field
 
-from src.pharma_distributor.common.units import Currency
+from src.pharma_distributor.common.enums import Currency
 from src.pharma_distributor.utils.validators import PriceValidator, NonNegativeValidator
 from src.pharma_distributor.utils.converters import CurrencyConverter
 
