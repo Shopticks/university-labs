@@ -1,4 +1,3 @@
-Требования: чистый python, только встроенные функции.
 Вариант: Компания по сбыту лекарственных препаратов
 Задание: 50 классов, 150 полей, 100 уникальных поведений (перевод денег с одной карты на другую, проверка верного пароля и тд),
 код должен включать 30 примеров ассоциаций классов (включения одного класса в другой в качестве поле или параметров метода)
@@ -7,60 +6,75 @@
 
 Предполагаемая структура
 .
-├── docs/
-├── src/
-│   └── pharma_distributor/
+├── main.py
+├── pyproject.toml
+├── src
+│   └── pharma_distributor
 │       ├── __init__.py
-│       ├── main.py
-│       ├── config.py
+│       ├── __main__.py
+│       ├── auth
+│       │   ├── __init__.py
+│       │   ├── models.py
+│       │   └── services.py
+│       ├── catalog
+│       │   ├── __init__.py
+│       │   ├── models.py
+│       │   └── services.py
+│       ├── common
+│       │   ├── __init__.py
+│       │   ├── enums.py
+│       │   └── models.py
 │       ├── exceptions.py
-│       │
-│       ├── common/
+│       ├── finance
 │       │   ├── __init__.py
-│       │   └── units.py
-│       │
-│       ├── utils/
+│       │   ├── models.py
+│       │   └── services.py
+│       ├── interfaces
 │       │   ├── __init__.py
-│       │   ├── validators.py
+│       │   ├── base.py
 │       │   ├── converters.py
-│       │   ├── formatters.py
-│       │   ├── generators.py
-│       │   └── logger.py
-│       │
-│       ├── auth/
+│       │   └── validators.py
+│       ├── inventory
 │       │   ├── __init__.py
-│       │   ├── users.py
-│       │   ├── credentials.py
-│       │   └── security.py
-│       │
-│       ├── catalog/
+│       │   ├── models.py
+│       │   └── services.py
+│       ├── logistics
 │       │   ├── __init__.py
-│       │   ├── products.py
-│       │   ├── categories.py
-│       │   └── details.py
-│       │
-│       ├── inventory/
+│       │   ├── models.py
+│       │   └── services.py
+│       ├── reporting
 │       │   ├── __init__.py
-│       │   ├── warehouses.py
-│       │   └── stock.py
-│       │
-│       ├── finance/
+│       │   ├── models.py
+│       │   └── services.py
+│       ├── sales
 │       │   ├── __init__.py
-│       │   ├── payments.py
-│       │   ├── transactions.py
-│       │   └── wallets.py
-│       │
-│       ├── logistics/
-│       │   ├── __init__.py
-│       │   ├── cargo.py
-│       │   ├── transport.py
-│       │   ├── routing.py
-│       │   └── personnel.py
-│       │
-│       └── sales/
+│       │   ├── models.py
+│       │   └── services.py
+│       └── utils
 │           ├── __init__.py
-│           ├── orders.py
-│           ├── customers.py
-│           └── contracts.py
-│
-└── tests/
+│           ├── converters.py
+│           ├── generators.py
+│           └── validators.py
+├── structure.txt
+└── tests
+    ├── auth
+    │   ├── test_auth_models.py
+    │   └── test_auth_services.py
+    ├── catalog
+    │   ├── test_catalog_models.py
+    │   └── test_catalog_services.py
+    ├── finance
+    │   ├── test_finance_models.py
+    │   └── test_finance_services.py
+    ├── inventory
+    │   ├── test_inventory_models.py
+    │   └── test_inventory_services.py
+    ├── logistics
+    │   ├── test_logistics_models.py
+    │   └── test_logistics_services.py
+    ├── reporting
+    │   ├── test_reporting_models.py
+    │   └── test_reporting_services.py
+    └── sales
+        ├── test_sales_models.py
+        └── test_sales_services.py
