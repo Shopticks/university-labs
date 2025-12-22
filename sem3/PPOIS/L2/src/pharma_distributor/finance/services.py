@@ -1,38 +1,36 @@
-from decimal import Decimal
-from dataclasses import dataclass, field
-
-from src.pharma_distributor.common.enums import Currency
-from src.pharma_distributor.utils.validators import PriceValidator, NonNegativeValidator
+from src.pharma_distributor.finance.models import Money, BankAccount, Transaction
 from src.pharma_distributor.utils.converters import CurrencyConverter
+from src.pharma_distributor.utils.generators import IDGenerator
+from src.pharma_distributor.exceptions import FinanceError
 
 
-@dataclass
-class Price:
-    _amount: Decimal = field(default_factory=Decimal)
-    currency: Currency = Currency.BYN
+class FinanceService:
+    def __init__(self, converter: CurrencyConverter):
+        self.converter = converter
 
-    def __post_init__(self):
-        price_validator = PriceValidator()
-        price_validator.validate(self)
+    def transfer_funds(self, source: BankAccount, target: BankAccount, amount: Money) -> Transaction:
+        source.withdraw(amount)
 
-    def convert_to(self, target_currency: Currency) -> None:
-        currency_converter = CurrencyConverter()
-        new_amount = currency_converter.convert(
-            self._amount, self.currency, target_currency
+        # Currency conversion, if necessary
+        amount_to_deposit = amount
+        if source.balance.currency != target.balance.currency:
+            converted_val = self.converter.convert(
+                amount.amount,
+                amount.currency,
+                target.balance.currency
+            )
+            amount_to_deposit = Money(converted_val, target.balance.currency)
+
+        try:
+            target.deposit(amount_to_deposit)
+        except Exception as e:
+            source.deposit(amount)
+            raise FinanceError(f"Transfer failed during deposit: {str(e)}")
+
+        return Transaction(
+            id=IDGenerator.generate_uuid(),
+            source_account_id=source.iban,
+            target_account_id=target.iban,
+            amount=amount,
+            description=f"Transfer from {source.bank_name} to {target.bank_name}"
         )
-        self.amount = new_amount
-        self.currency = target_currency
-
-    @property
-    def amount(self) -> Decimal:
-        return round(self._amount, 2)
-
-    @amount.setter
-    def amount(self, value: Decimal):
-        non_negative_validator = NonNegativeValidator()
-        non_negative_validator.validate(value)
-
-        self._amount = value
-
-    def __str__(self):
-        return f"{self._amount} {self.currency.name}"

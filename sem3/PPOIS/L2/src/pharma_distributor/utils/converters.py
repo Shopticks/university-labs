@@ -1,45 +1,48 @@
-from abc import ABC, abstractmethod
 from decimal import Decimal
-from typing import Union
-
-from src.pharma_distributor.common.units import DimensionUnit, WeightUnit, Currency
-from src.pharma_distributor.exceptions import ConversionError
+from src.pharma_distributor.common.enums import Currency, WeightUnit, VolumeUnit
+from src.pharma_distributor.interfaces.converters import IConverter
 
 
-class BaseConverter(ABC):
-    @abstractmethod
-    def convert(self, value: Decimal,
-                unit_from: Union[DimensionUnit, WeightUnit, Currency],
-                unit_to: Union[DimensionUnit, WeightUnit, Currency]
-                ) -> Decimal:
-        pass
+class CurrencyConverter(IConverter):
+    RATES = {
+        (Currency.USD, Currency.BYN): Decimal("3.20"),
+        (Currency.EUR, Currency.BYN): Decimal("3.50"),
+    }
+
+    def convert(self, amount: Decimal, from_c: Currency, to_c: Currency) -> Decimal:
+        if from_c == to_c:
+            return amount
+
+        pair = (from_c, to_c)
+        if pair in self.RATES:
+            return amount * self.RATES[pair]
+
+        reverse_pair = (to_c, from_c)
+        if reverse_pair in self.RATES:
+            return amount / self.RATES[reverse_pair]
+
+        raise NotImplementedError(f"Conversion {from_c} -> {to_c} not supported")
 
 
-class DimensionConverter(BaseConverter):
-    def convert(self, value: Decimal, unit_from: DimensionUnit, unit_to: DimensionUnit) -> Decimal:
-        try:
-            base_value = value * unit_from.value[1]
-            result = base_value / unit_to.value[1]
-            return result
-        except Exception as e:
-            raise ConversionError(f"Failed to convert dimension: {e}")
+class VolumeConverter(IConverter):
+    _TO_M3 = {
+        VolumeUnit.CUBIC_METER: Decimal("1.0"),
+        VolumeUnit.LITER: Decimal("0.001"),
+        VolumeUnit.CUBIC_CENTIMETER: Decimal("0.000001"),
+        VolumeUnit.MILLILITER: Decimal("0.000001"),
+    }
 
+    def to_cubic_meters(self, amount: Decimal, unit: VolumeUnit) -> Decimal:
+        if unit not in self._TO_M3:
+            raise NotImplementedError(f"Conversion for {unit} not implemented")
 
-class WeightConverter(BaseConverter):
-    def convert(self, value: Decimal, unit_from: WeightUnit, unit_to: WeightUnit) -> Decimal:
-        try:
-            base_value = value * unit_from.value[1]
-            result = base_value / unit_to.value[1]
-            return result
-        except Exception as e:
-            raise ConversionError(f"Failed to convert weight: {e}")
+        return amount * self._TO_M3[unit]
 
+    def convert(self, amount: Decimal, from_unit: VolumeUnit, to_unit: VolumeUnit) -> Decimal:
+        if from_unit == to_unit:
+            return amount
 
-class CurrencyConverter(BaseConverter):
-    def convert(self, value: Decimal, unit_from: Currency, unit_to: Currency) -> Decimal:
-        try:
-            base_value = value * unit_from.value
-            result = base_value / unit_to.value
-            return result
-        except Exception as e:
-            raise ConversionError(f"Failed to convert currency: {e}")
+        in_m3 = self.to_cubic_meters(amount, from_unit)
+
+        factor = self._TO_M3[to_unit]
+        return in_m3 / factor

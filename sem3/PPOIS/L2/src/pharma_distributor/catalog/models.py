@@ -5,6 +5,7 @@ from typing import Optional
 from abc import ABC, abstractmethod
 
 from src.pharma_distributor.common.enums import WarrantyStatus
+from src.pharma_distributor.common.models import Volume
 from src.pharma_distributor.finance.models import Money
 from src.pharma_distributor.exceptions import ValidationError
 
@@ -31,6 +32,7 @@ class ProductSpecification:
     manufacturer: str
     country_of_origin: str
     storage_conditions: str
+    packaging_volume: Volume
 
     def __post_init__(self):
         if not self.manufacturer:
@@ -54,9 +56,9 @@ class BaseProduct(ABC):
         if not (0 < percentage < 100):
             raise ValidationError("Discount percentage must be between 0 and 100")
 
-        factor = Decimal(1 - (percentage / 100))
+        factor = Decimal("1") - (Decimal(str(percentage)) / Decimal("100"))
         new_amount = self.price.amount * factor
-        self.price = Money(round(new_amount, 2), self.price.currency)
+        self.price = Money(new_amount.quantize(Decimal("0.01")), self.price.currency)
 
     def archive(self) -> None:
         self.is_active = False

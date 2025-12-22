@@ -1,54 +1,29 @@
-from abc import ABC, abstractmethod
-from decimal import Decimal
-from typing import TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from src.pharma_distributor.catalog.products import BaseProduct, ProductInfo
-    from src.pharma_distributor.finance.price import Price
-
-from src.pharma_distributor.exceptions import CatalogError, FinanceError
+import re
+from typing import Any
+from src.pharma_distributor.exceptions import ValidationError
+from src.pharma_distributor.interfaces.validators import BaseValidator
 
 
-class BaseValidator(ABC):
+class EmailValidator(BaseValidator[str]):
+    EMAIL_REGEX = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
 
-    @abstractmethod
-    def validate(self, *args, **kwargs):
-        pass
-
-
-class NonNegativeValidator(BaseValidator):
-    def validate(self, value: Decimal):
-        if value < 0:
-            raise ValueError(f"Value need to be positive, got {value}")
+    def validate(self, value: str) -> None:
+        if not re.match(self.EMAIL_REGEX, value):
+            raise ValidationError(f"Invalid email format: {value}")
 
 
-class PriceValidator(BaseValidator):
-    def validate(self, price: 'Price'):
-        non_negative_validator = NonNegativeValidator()
+class PhoneValidator(BaseValidator[str]):
+    PHONE_REGEX = r"^\+?[1-9]\d{1,14}$"
 
-        try:
-            non_negative_validator.validate(price.get_amount())
-        except ValueError as e:
-            raise FinanceError(e)
+    def validate(self, value: Any) -> None:
+        if not re.match(self.PHONE_REGEX, value):
+            raise ValidationError(f"Invalid phone format: {value}")
 
 
-class ProductInfoValidator(BaseValidator):
-    def validate(self, info: 'ProductInfo'):
-        if info.weight <= 0:
-            raise CatalogError("ProductInfo weight must be positive")
-        if not info.barcode:
-            raise CatalogError("ProductInfo barcode cannot be empty")
+class TaxIdValidator(BaseValidator[str]):
+    def validate(self, value: Any) -> None:
+        if not value.isdigit():
+            raise ValidationError("Tax ID must contain only digits")
 
-
-class ProductValidator(BaseValidator):
-    def validate(self, product: 'BaseProduct'):
-        if product.product_id <= 0:
-            raise CatalogError(f"Product ID must be positive, got {product.product_id}")
-        if not product.name.strip():
-            raise CatalogError("Product name cannot be empty")
-
-        info_validator = ProductInfoValidator()
-        info_validator.validate(product.info)
-
-        price_validator = PriceValidator()
-        price_validator.validate(product.price)
+        if len(value) not in (10, 12):
+            raise ValidationError("Tax ID must be 10 or 12 digits long")
