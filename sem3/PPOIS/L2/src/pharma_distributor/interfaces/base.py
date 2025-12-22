@@ -4,7 +4,7 @@ from typing import Any, List, TypeVar, Generic, Optional
 T = TypeVar('T')
 
 
-class IRepository(ABC, Generic[T]):
+class BaseRepository(ABC, Generic[T]):
     """
     Generic interface for Data Access Objects (DAOs) or Repositories.
     Provides standard CRUD operations for domain entities.
@@ -54,7 +54,7 @@ class IRepository(ABC, Generic[T]):
         ...
 
 
-class INotificationService(ABC):
+class BaseNotificationService(ABC):
     """
     Abstract interface for sending notifications to users via different channels.
     """
@@ -83,7 +83,7 @@ class INotificationService(ABC):
         ...
 
 
-class IPaymentGateway(ABC):
+class BasePaymentGateway(ABC):
     """
     Abstract interface for processing financial payments through external providers.
     """

@@ -1,7 +1,7 @@
 from pharma_distributor.auth.models import User
 from pharma_distributor.common.enums import Role
 from pharma_distributor.exceptions import AuthenticationError
-from pharma_distributor.interfaces.base import IRepository
+from pharma_distributor.interfaces.base import BaseRepository
 
 
 class SecurityService:
@@ -9,7 +9,7 @@ class SecurityService:
     Domain service responsible for high-level authentication and authorization logic,
     managing user sessions and role assignments.
     """
-    def __init__(self, user_repository: IRepository[User]):
+    def __init__(self, user_repository: BaseRepository[User]):
         """
         Args:
            user_repository: Repository interface for accessing User data.

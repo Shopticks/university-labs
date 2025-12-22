@@ -9,7 +9,7 @@ from pharma_distributor.catalog.models import (
 from pharma_distributor.common.enums import WarrantyStatus
 from pharma_distributor.exceptions import ValidationError
 from pharma_distributor.finance.models import Money
-from pharma_distributor.interfaces.base import IRepository
+from pharma_distributor.interfaces.base import BaseRepository
 
 
 class CatalogService:
@@ -17,7 +17,7 @@ class CatalogService:
     Domain service for managing the product catalog.
     Handles product lifecycle, pricing updates, and specialized logic for medicines and devices.
     """
-    def __init__(self, product_repository: IRepository[BaseProduct]):
+    def __init__(self, product_repository: BaseRepository[BaseProduct]):
         """
         Args:
             product_repository: Data access interface for products.
