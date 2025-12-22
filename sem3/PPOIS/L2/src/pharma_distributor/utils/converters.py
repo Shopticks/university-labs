@@ -1,6 +1,6 @@
 from decimal import Decimal
-from src.pharma_distributor.common.enums import Currency, WeightUnit, VolumeUnit
-from src.pharma_distributor.interfaces.converters import IConverter
+from pharma_distributor.common.enums import Currency, WeightUnit, VolumeUnit
+from pharma_distributor.interfaces.converters import IConverter
 
 
 class CurrencyConverter(IConverter):

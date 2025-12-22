@@ -2,19 +2,19 @@ from datetime import date
 from decimal import Decimal
 from typing import List, Dict
 
-from src.pharma_distributor.utils.converters import CurrencyConverter
-from src.pharma_distributor.catalog.services import CatalogService
-from src.pharma_distributor.common.enums import Currency
-from src.pharma_distributor.inventory.models import Warehouse
-from src.pharma_distributor.reporting.models import (
+from pharma_distributor.utils.converters import CurrencyConverter
+from pharma_distributor.catalog.services import CatalogService
+from pharma_distributor.common.enums import Currency
+from pharma_distributor.inventory.models import Warehouse
+from pharma_distributor.reporting.models import (
     FinancialSummary,
     InventoryReport,
     InventoryLineItem,
     BatchReportItem,
     SalesPerformanceItem
 )
-from src.pharma_distributor.sales.models import Order, OrderStatus
-from src.pharma_distributor.exceptions import ReporterError
+from pharma_distributor.sales.models import Order, OrderStatus
+from pharma_distributor.exceptions import ReporterError
 
 
 class ReportGenerator:

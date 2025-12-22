@@ -3,8 +3,8 @@ from datetime import datetime, timezone
 from decimal import Decimal, ROUND_HALF_UP
 from typing import Union
 
-from src.pharma_distributor.common.enums import Currency
-from src.pharma_distributor.exceptions import FinanceError, InsufficientFundsError, CurrencyMismatchError
+from pharma_distributor.common.enums import Currency
+from pharma_distributor.exceptions import FinanceError, InsufficientFundsError, CurrencyMismatchError
 
 
 @dataclass(frozen=True)

@@ -4,10 +4,10 @@ from decimal import Decimal
 from typing import Dict, List, Optional
 from uuid import uuid4
 
-from src.pharma_distributor.common.models import Address, Volume
-from src.pharma_distributor.common.enums import VolumeUnit
-from src.pharma_distributor.catalog.models import BaseProduct
-from src.pharma_distributor.exceptions import (
+from pharma_distributor.common.models import Address, Volume
+from pharma_distributor.common.enums import VolumeUnit
+from pharma_distributor.catalog.models import BaseProduct
+from pharma_distributor.exceptions import (
     InventoryError,
     WarehouseFullError,
     OutOfStockError

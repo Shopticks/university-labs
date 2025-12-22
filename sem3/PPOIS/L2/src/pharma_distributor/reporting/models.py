@@ -3,7 +3,7 @@ from datetime import date, datetime
 from decimal import Decimal
 from typing import List
 
-from src.pharma_distributor.common.enums import Currency
+from pharma_distributor.common.enums import Currency
 
 
 @dataclass(frozen=True)

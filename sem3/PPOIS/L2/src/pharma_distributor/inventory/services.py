@@ -1,9 +1,9 @@
 from datetime import date, timedelta
 from typing import List, Optional
 
-from src.pharma_distributor.catalog.models import BaseProduct, Medicine
-from src.pharma_distributor.exceptions import ValidationError
-from src.pharma_distributor.inventory.models import Warehouse, StockBatch
+from pharma_distributor.catalog.models import BaseProduct, Medicine
+from pharma_distributor.exceptions import ValidationError
+from pharma_distributor.inventory.models import Warehouse, StockBatch
 
 
 class InventoryManager:

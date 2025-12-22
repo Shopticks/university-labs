@@ -1,7 +1,7 @@
 import re
 from typing import Any
-from src.pharma_distributor.exceptions import ValidationError
-from src.pharma_distributor.interfaces.validators import BaseValidator
+from pharma_distributor.exceptions import ValidationError
+from pharma_distributor.interfaces.validators import BaseValidator
 
 
 class EmailValidator(BaseValidator[str]):

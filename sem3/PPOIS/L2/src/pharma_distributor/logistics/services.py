@@ -1,14 +1,14 @@
 from datetime import timedelta, datetime
 from typing import List
 
-from src.pharma_distributor.logistics.models import (
+from pharma_distributor.logistics.models import (
     Vehicle,
     Driver,
     DeliveryRoute,
     RoutePoint,
     VehicleStatus
 )
-from src.pharma_distributor.exceptions import LogisticsError
+from pharma_distributor.exceptions import LogisticsError
 
 
 class FleetManager:

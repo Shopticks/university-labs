@@ -4,10 +4,10 @@ from decimal import Decimal
 from typing import Optional
 from abc import ABC, abstractmethod
 
-from src.pharma_distributor.common.enums import WarrantyStatus
-from src.pharma_distributor.common.models import Volume
-from src.pharma_distributor.finance.models import Money
-from src.pharma_distributor.exceptions import ValidationError
+from pharma_distributor.common.enums import WarrantyStatus
+from pharma_distributor.common.models import Volume
+from pharma_distributor.finance.models import Money
+from pharma_distributor.exceptions import ValidationError
 
 
 @dataclass

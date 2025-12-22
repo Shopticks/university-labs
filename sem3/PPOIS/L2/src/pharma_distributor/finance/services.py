@@ -1,7 +1,7 @@
-from src.pharma_distributor.finance.models import Money, BankAccount, Transaction
-from src.pharma_distributor.utils.converters import CurrencyConverter
-from src.pharma_distributor.utils.generators import IDGenerator
-from src.pharma_distributor.exceptions import FinanceError
+from pharma_distributor.finance.models import Money, BankAccount, Transaction
+from pharma_distributor.utils.converters import CurrencyConverter
+from pharma_distributor.utils.generators import IDGenerator
+from pharma_distributor.exceptions import FinanceError
 
 
 class FinanceService:

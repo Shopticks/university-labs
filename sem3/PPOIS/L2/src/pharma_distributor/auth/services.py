@@ -1,7 +1,7 @@
-from src.pharma_distributor.auth.models import User
-from src.pharma_distributor.common.enums import Role
-from src.pharma_distributor.exceptions import AuthenticationError
-from src.pharma_distributor.interfaces.base import IRepository
+from pharma_distributor.auth.models import User
+from pharma_distributor.common.enums import Role
+from pharma_distributor.exceptions import AuthenticationError
+from pharma_distributor.interfaces.base import IRepository
 
 
 class SecurityService:

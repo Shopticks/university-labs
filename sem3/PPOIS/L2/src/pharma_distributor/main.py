@@ -2,17 +2,17 @@
 # from datetime import date
 #
 # # Imports (Models)
-# from src.pharma_distributor.finance.models import Money, BankAccount
-# from src.pharma_distributor.catalog.models import Medicine, Category, ProductSpecification
-# from src.pharma_distributor.inventory.models import Warehouse
-# from src.pharma_distributor.common.models import Address, ContactInfo
-# from src.pharma_distributor.common.enums import Currency
+# from pharma_distributor.finance.models import Money, BankAccount
+# from pharma_distributor.catalog.models import Medicine, Category, ProductSpecification
+# from pharma_distributor.inventory.models import Warehouse
+# from pharma_distributor.common.models import Address, ContactInfo
+# from pharma_distributor.common.enums import Currency
 #
 # # Imports (Services)
-# from src.pharma_distributor.finance.services import FinanceService
-# from src.pharma_distributor.inventory.services import InventoryManager
-# from src.pharma_distributor.catalog.services import CatalogService
-# from src.pharma_distributor.utils.converters import CurrencyConverter
+# from pharma_distributor.finance.services import FinanceService
+# from pharma_distributor.inventory.services import InventoryManager
+# from pharma_distributor.catalog.services import CatalogService
+# from pharma_distributor.utils.converters import CurrencyConverter
 #
 #
 # def main():

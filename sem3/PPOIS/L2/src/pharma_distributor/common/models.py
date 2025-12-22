@@ -4,9 +4,9 @@ from functools import total_ordering
 from decimal import Decimal
 
 from .enums import VolumeUnit
-from src.pharma_distributor.exceptions import ValidationError
-from src.pharma_distributor.utils.converters import VolumeConverter
-from src.pharma_distributor.utils.validators import EmailValidator, PhoneValidator
+from pharma_distributor.exceptions import ValidationError
+from pharma_distributor.utils.converters import VolumeConverter
+from pharma_distributor.utils.validators import EmailValidator, PhoneValidator
 
 @dataclass(frozen=True)
 class Address:
@@ -68,7 +68,7 @@ class Volume:
         Returns the volume amount normalized to cubic meters.
         Used primarily for standardized comparisons.
         """
-        return VolumeConverter.to_cubic_meters(self.amount, self.unit)
+        return VolumeConverter().to_cubic_meters(self.amount, self.unit)
 
     def __add__(self, other: 'Volume') -> 'Volume':
         """
@@ -78,7 +78,7 @@ class Volume:
         Returns:
             Volume: A new Volume object in the unit of the left-hand operand.
         """
-        other_converted = VolumeConverter.convert(other.amount, other.unit, self.unit)
+        other_converted = VolumeConverter().convert(other.amount, other.unit, self.unit)
         return Volume(self.amount + other_converted, self.unit)
 
     def __mul__(self, multiplier: int) -> 'Volume':

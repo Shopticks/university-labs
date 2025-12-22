@@ -2,10 +2,10 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Optional
 
-from src.pharma_distributor.common.enums import Role
-from src.pharma_distributor.common.models import ContactInfo
-from src.pharma_distributor.utils.generators import PasswordHelper
-from src.pharma_distributor.exceptions import ValidationError, AuthenticationError
+from pharma_distributor.common.enums import Role
+from pharma_distributor.common.models import ContactInfo
+from pharma_distributor.utils.generators import PasswordHelper
+from pharma_distributor.exceptions import ValidationError, AuthenticationError
 
 
 @dataclass

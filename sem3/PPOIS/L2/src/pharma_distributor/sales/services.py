@@ -1,12 +1,12 @@
 from typing import List, Tuple
 from datetime import date, timedelta
 
-from src.pharma_distributor.catalog.models import BaseProduct
-from src.pharma_distributor.exceptions import SalesError, OutOfStockError
-from src.pharma_distributor.inventory.models import Warehouse
-from src.pharma_distributor.inventory.services import InventoryManager
-from src.pharma_distributor.sales.models import Order, Customer, OrderStatus
-from src.pharma_distributor.utils.generators import IDGenerator
+from pharma_distributor.catalog.models import BaseProduct
+from pharma_distributor.exceptions import SalesError, OutOfStockError
+from pharma_distributor.inventory.models import Warehouse
+from pharma_distributor.inventory.services import InventoryManager
+from pharma_distributor.sales.models import Order, Customer, OrderStatus
+from pharma_distributor.utils.generators import IDGenerator
 
 
 class SalesService:

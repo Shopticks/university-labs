@@ -1,15 +1,15 @@
 from typing import List
 
-from src.pharma_distributor.catalog.models import (
+from pharma_distributor.catalog.models import (
     Medicine,
     MedicalDevice,
     BaseProduct,
     Category
 )
-from src.pharma_distributor.common.enums import WarrantyStatus
-from src.pharma_distributor.exceptions import ValidationError
-from src.pharma_distributor.finance.models import Money
-from src.pharma_distributor.interfaces.base import IRepository
+from pharma_distributor.common.enums import WarrantyStatus
+from pharma_distributor.exceptions import ValidationError
+from pharma_distributor.finance.models import Money
+from pharma_distributor.interfaces.base import IRepository
 
 
 class CatalogService:

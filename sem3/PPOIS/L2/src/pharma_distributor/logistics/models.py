@@ -2,9 +2,9 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import List, Optional
 
-from src.pharma_distributor.common.enums import DriverStatus, VehicleStatus, RouteStatus
-from src.pharma_distributor.common.models import Address
-from src.pharma_distributor.exceptions import LogisticsError, ValidationError
+from pharma_distributor.common.enums import DriverStatus, VehicleStatus, RouteStatus
+from pharma_distributor.common.models import Address
+from pharma_distributor.exceptions import LogisticsError, ValidationError
 
 
 @dataclass

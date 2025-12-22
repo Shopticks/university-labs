@@ -3,15 +3,15 @@ from datetime import datetime
 from decimal import Decimal
 from typing import List, Optional
 
-from src.pharma_distributor.catalog.models import BaseProduct
-from src.pharma_distributor.common.enums import OrderStatus, Currency
-from src.pharma_distributor.common.models import Address, ContactInfo
-from src.pharma_distributor.exceptions import (
+from pharma_distributor.catalog.models import BaseProduct
+from pharma_distributor.common.enums import OrderStatus, Currency
+from pharma_distributor.common.models import Address, ContactInfo
+from pharma_distributor.exceptions import (
     InvalidOrderStatusError,
     ValidationError,
     CurrencyMismatchError
 )
-from src.pharma_distributor.finance.models import Money
+from pharma_distributor.finance.models import Money
 
 
 @dataclass
