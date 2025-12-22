@@ -46,7 +46,6 @@ class FleetManager:
         if vehicle.current_driver:
             vehicle.release_driver()
 
-        # Accessing protected field for status update logic
         object.__setattr__(vehicle, '_status', VehicleStatus.MAINTENANCE)
 
     def complete_maintenance(self, vehicle: Vehicle) -> None:
@@ -108,7 +107,6 @@ class RoutingService:
         Currently implements a simple sort by expected arrival time.
         """
         route.points.sort(key=lambda p: p.expected_arrival)
-        # In a real scenario, this would involve TSP algorithms (e.g., OR-Tools)
         pass
 
     def dispatch_route(self, route: DeliveryRoute) -> None:

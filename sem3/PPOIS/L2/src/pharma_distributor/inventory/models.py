@@ -168,7 +168,6 @@ class Warehouse:
         if product.id not in self._stock:
             self._stock[product.id] = []
 
-        # Check if batch exists to merge
         existing_batch = next(
             (b for b in self._stock[product.id]
              if b.batch_number == batch_number
@@ -189,7 +188,6 @@ class Warehouse:
                 unit_volume=unit_vol
             )
             self._stock[product.id].append(new_batch)
-            # Sort batches by expiry date (FIFO/FEFO logic preparation)
             self._stock[product.id].sort(key=lambda b: b.expiry_date)
             added_vol = new_batch.total_volume_m3
 
@@ -232,7 +230,6 @@ class Warehouse:
             if remaining_to_take == 0:
                 break
 
-        # Clean up empty batches
         self._stock[product_id] = [b for b in batches if b.quantity > 0]
 
         self._update_load(-total_freed_vol_m3)

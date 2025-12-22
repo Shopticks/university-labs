@@ -36,7 +36,6 @@ class FinanceService:
         """
         source.withdraw(amount)
 
-        # Currency conversion, if necessary
         amount_to_deposit = amount
         if source.balance.currency != target.balance.currency:
             converted_val = self.converter.convert(
@@ -49,7 +48,6 @@ class FinanceService:
         try:
             target.deposit(amount_to_deposit)
         except Exception as e:
-            # Simple rollback mechanism
             source.deposit(amount)
             raise FinanceError(f"Transfer failed during deposit: {str(e)}")
 

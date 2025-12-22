@@ -49,7 +49,6 @@ class Driver:
         Marks the driver as available after completing a trip.
         """
         if self._status != DriverStatus.ON_TRIP:
-            # Idempotent or log warning
             pass
         self._status = DriverStatus.AVAILABLE
 

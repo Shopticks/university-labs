@@ -1,17 +1,17 @@
 [project]
-name = "some-name"
-version = "0.0.0"
-authors = [{name = "Artem Shumilov", email = "frogwithcode@gmail.com"}]
-description = "some text"
+name = "Pharmacy_distributor"
+version = "1.0.0"
+authors = [{name = "Ivan Zakharenkau", email = "vawashop@gmail.com"}]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
+testpaths = ["tests"]
 
 [tool.coverage.run]
 source = ["src"]
 omit = [
-    "*/__main__.py",
-    "*/__init__.py",
+    "*/*/__main__.py",
+    "*/*/__init__.py",
 ]
 
 [project.optional-dependencies]

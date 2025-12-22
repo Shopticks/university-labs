@@ -59,7 +59,6 @@ class InventoryManager:
                 raise ValidationError(f"Cannot accept expired goods. Expired on: {expiry_date}")
 
             if not expiry_date:
-                # Basic requirement for traceability in this system
                 raise ValidationError("Expiry date is required for batch tracking logic")
 
         warehouse.add_stock(product, quantity, batch_number, expiry_date)
