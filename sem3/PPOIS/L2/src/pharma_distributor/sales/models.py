@@ -16,6 +16,10 @@ from src.pharma_distributor.finance.models import Money
 
 @dataclass
 class Customer:
+    """
+    Represents a registered buyer in the system.
+    Contains billing and shipping details required for order processing.
+    """
     id: int
     name: str
     billing_address: Address
@@ -25,20 +29,38 @@ class Customer:
 
 @dataclass
 class OrderItem:
+    """
+    Represents a specific line item within an order, linking a product
+    to a requested quantity and price snapshot.
+    """
     product: BaseProduct
     quantity: int
     unit_price: Money
 
     def __post_init__(self):
+        """
+        Validates that the ordered quantity is positive.
+        """
         if self.quantity <= 0:
             raise ValidationError(f"Quantity must be positive, got {self.quantity}")
 
     def total(self) -> Money:
+        """
+        Calculates the total cost for this line item.
+
+        Returns:
+            Money: unit_price * quantity.
+        """
         return self.unit_price * self.quantity
 
 
 @dataclass
 class Order:
+    """
+    Aggregate Root representing a sales transaction.
+    Manages the lifecycle of the order (creation, payment, shipping)
+    and ensures consistency of items (currency, availability).
+    """
     id: str
     customer: Customer
     items: List[OrderItem] = field(default_factory=list)
@@ -49,6 +71,12 @@ class Order:
     warehouse_id: Optional[int] = None
 
     def calculate_total(self) -> Money:
+        """
+        Calculates the grand total of the order by summing all line items.
+
+        Returns:
+            Money: The sum of all items. Returns 0 BYN if order is empty.
+        """
         if not self.items:
             return Money(Decimal("0"), Currency.BYN)
 
@@ -59,6 +87,21 @@ class Order:
         return total
 
     def add_item(self, product: BaseProduct, quantity: int) -> None:
+        """
+        Adds a product to the order.
+        - Merges with existing item if product already exists in order.
+        - Validates that product is active.
+        - Ensures all items in the order use the same currency.
+
+        Args:
+            product: The product to add.
+            quantity: The number of units.
+
+        Raises:
+            InvalidOrderStatusError: If order is not in NEW status.
+            ValidationError: If product is inactive.
+            CurrencyMismatchError: If product currency differs from existing items.
+        """
         if self.status != OrderStatus.NEW:
             raise InvalidOrderStatusError("Cannot add items to a confirmed or processed order")
 
@@ -86,6 +129,17 @@ class Order:
         self.updated_at = datetime.now()
 
     def confirm(self, warehouse_id: int) -> None:
+        """
+        Locks the order to a specific warehouse and transitions status to PAID.
+        Usually called after stock reservation is successful.
+
+        Args:
+            warehouse_id: The ID of the fulfilling warehouse.
+
+        Raises:
+            InvalidOrderStatusError: If order is not NEW.
+            ValidationError: If order is empty.
+        """
         if self.status != OrderStatus.NEW:
             raise InvalidOrderStatusError(f"Cannot confirm order in status {self.status}")
 
@@ -97,6 +151,13 @@ class Order:
         self.updated_at = datetime.now()
 
     def mark_as_paid(self) -> None:
+        """
+        Manually marks the order as PAID.
+        Idempotent if already paid.
+
+        Raises:
+            InvalidOrderStatusError: If order is not NEW or PAID.
+        """
         if self.status == OrderStatus.PAID:
             return
 
@@ -107,6 +168,10 @@ class Order:
         self.updated_at = datetime.now()
 
     def ship(self) -> None:
+        """
+        Transitions order to SHIPPED status.
+        Requires order to be PAID.
+        """
         if self.status != OrderStatus.PAID:
             raise InvalidOrderStatusError("Cannot ship unpaid order")
 
@@ -114,6 +179,10 @@ class Order:
         self.updated_at = datetime.now()
 
     def deliver(self) -> None:
+        """
+        Transitions order to DELIVERED status.
+        Requires order to be SHIPPED.
+        """
         if self.status != OrderStatus.SHIPPED:
             raise InvalidOrderStatusError("Cannot deliver order that hasn't been shipped")
 
@@ -121,6 +190,13 @@ class Order:
         self.updated_at = datetime.now()
 
     def cancel(self, reason: str = "") -> None:
+        """
+        Cancels the order.
+        Cannot cancel orders that have already left the warehouse.
+
+        Args:
+            reason: Optional reason for cancellation.
+        """
         if self.status in (OrderStatus.SHIPPED, OrderStatus.DELIVERED):
             raise InvalidOrderStatusError("Cannot cancel shipped or delivered order")
 

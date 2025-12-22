@@ -9,10 +9,17 @@ from src.pharma_distributor.exceptions import FinanceError, InsufficientFundsErr
 
 @dataclass(frozen=True)
 class Money:
+    """
+    Value Object representing a monetary amount associated with a specific currency.
+    Supports arithmetic operations while ensuring currency safety.
+    """
     amount: Decimal
     currency: Currency
 
     def __post_init__(self):
+        """
+        Validates the amount and ensures it is rounded to 2 decimal places.
+        """
         if not isinstance(self.amount, Decimal):
             object.__setattr__(self, 'amount', Decimal(str(self.amount)))
 
@@ -23,18 +30,33 @@ class Money:
             raise FinanceError(f"Money amount cannot be negative: {self.amount}")
 
     def _check_currency(self, other: 'Money'):
+        """
+        Helper to validate that both Money objects share the same currency.
+
+        Raises:
+            CurrencyMismatchError: If currencies differ.
+        """
         if self.currency != other.currency:
             raise CurrencyMismatchError(f"Currency mismatch: {self.currency} vs {other.currency}")
 
     def __add__(self, other: 'Money') -> 'Money':
+        """
+        Adds two Money objects of the same currency.
+        """
         self._check_currency(other)
         return Money(self.amount + other.amount, self.currency)
 
     def __sub__(self, other: 'Money') -> 'Money':
+        """
+        Subtracts one Money object from another. Must be same currency.
+        """
         self._check_currency(other)
         return Money(self.amount - other.amount, self.currency)
 
     def __mul__(self, other: Union[int, float, Decimal]) -> 'Money':
+        """
+        Multiplies the monetary amount by a scalar value.
+        """
         if isinstance(other, Money):
             raise FinanceError("Cannot multiply Money by Money")
 
@@ -60,21 +82,44 @@ class Money:
 
 @dataclass
 class BankAccount:
+    """
+    Represents a bank account holding a balance in a specific currency.
+    Acts as an Entity that mutates state via deposit and withdrawal.
+    """
     iban: str
     bank_name: str
     balance: Money
     is_active: bool = True
 
     def _activity_check(self) -> None:
+        """
+        Ensures the account is active before performing operations.
+        """
         if not self.is_active:
             raise FinanceError(f"Account {self.iban} is inactive")
 
     def deposit(self, amount: Money) -> None:
+        """
+        Adds funds to the account.
+
+        Args:
+            amount: The Money to add. Must match account currency.
+        """
         self._activity_check()
 
         self.balance = self.balance + amount
 
     def withdraw(self, amount: Money) -> None:
+        """
+        Removes funds from the account.
+
+        Args:
+            amount: The Money to remove. Must match account currency.
+
+        Raises:
+            FinanceError: If the withdrawal amount is not positive.
+            InsufficientFundsError: If the balance is lower than the requested amount.
+        """
         self._activity_check()
 
         if amount.amount <= 0:
@@ -91,6 +136,9 @@ class BankAccount:
 
 @dataclass
 class Transaction:
+    """
+    Represents an immutable record of a financial transfer.
+    """
     id: str
     source_account_id: str
     target_account_id: str
