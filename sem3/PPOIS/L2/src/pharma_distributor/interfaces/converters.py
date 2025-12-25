@@ -3,7 +3,7 @@ from decimal import Decimal
 from typing import Any
 
 
-class IConverter(ABC):
+class BaseConverter(ABC):
     """
     Abstract interface for generic unit conversion logic.
     """
@@ -24,7 +24,7 @@ class IConverter(ABC):
         ...
 
 
-class ICurrencyConverter(IConverter, ABC):
+class BaseCurrencyConverter(BaseConverter, ABC):
     """
     Abstract interface specifically for currency conversion operations.
     """
@@ -51,7 +51,7 @@ class ICurrencyConverter(IConverter, ABC):
         ...
 
 
-class IDimensionConverter(IConverter, ABC):
+class BaseDimensionConverter(BaseConverter, ABC):
     """
     Abstract interface for physical dimension conversions (e.g., volume, size).
     """

@@ -5,7 +5,7 @@ from typing import TypeVar, List, Optional, Any
 from pharma_distributor.catalog import CatalogService, Medicine, Category, ProductSpecification
 from pharma_distributor.common import Address, ContactInfo, Volume, Currency, VolumeUnit
 from pharma_distributor.finance import Money
-from pharma_distributor.interfaces import IRepository
+from pharma_distributor.interfaces import BaseRepository
 from pharma_distributor.inventory import InventoryManager, Warehouse
 from pharma_distributor.reporting import ReportGenerator
 from pharma_distributor.sales import Customer, SalesService
@@ -15,7 +15,7 @@ from pharma_distributor.sales import Customer, SalesService
 T = TypeVar("T")
 
 
-class InMemoryRepository(IRepository[T]):
+class InMemoryRepository(BaseRepository[T]):
     def __init__(self):
         self._store = {}
 

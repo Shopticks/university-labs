@@ -1,13 +1,13 @@
 from .base import BaseNotificationService, BasePaymentGateway, BaseRepository
-from .converters import IConverter, ICurrencyConverter, IDimensionConverter
+from .converters import BaseConverter, BaseCurrencyConverter, BaseDimensionConverter
 from .validators import BaseValidator
 
 __all__ = [
     "BaseNotificationService",
     "BasePaymentGateway",
     "BaseRepository",
-    "IConverter",
-    "ICurrencyConverter",
-    "IDimensionConverter",
+    "BaseConverter",
+    "BaseCurrencyConverter",
+    "BaseDimensionConverter",
     "BaseValidator",
 ]

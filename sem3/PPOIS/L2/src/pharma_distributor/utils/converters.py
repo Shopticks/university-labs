@@ -1,9 +1,9 @@
 from decimal import Decimal
 from pharma_distributor.common.enums import Currency, WeightUnit, VolumeUnit
-from pharma_distributor.interfaces.converters import IConverter
+from pharma_distributor.interfaces.converters import BaseConverter
 
 
-class CurrencyConverter(IConverter):
+class CurrencyConverter(BaseConverter):
     """
     Service for converting monetary amounts between supported currencies.
     Uses a hardcoded exchange rate table for demonstration purposes.
@@ -42,7 +42,7 @@ class CurrencyConverter(IConverter):
         raise NotImplementedError(f"Conversion {from_c} -> {to_c} not supported")
 
 
-class VolumeConverter(IConverter):
+class VolumeConverter(BaseConverter):
     """
     Service for converting physical volume measurements.
     Standardizes all units to Cubic Meters (m^3) as the intermediate base unit.
