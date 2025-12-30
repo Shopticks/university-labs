@@ -14,21 +14,21 @@ SegmentVector::SegmentVector(const Point &a, const Point &b)
 SegmentVector::SegmentVector(const SegmentVector& other)
     : leftCorner(other.leftCorner), rightCorner(other.rightCorner) {}
 
-Point SegmentVector::getLeftCorner() const {
+Point SegmentVector::getLeftCorner() const noexcept{
     return this->leftCorner;
 }
 
-Point SegmentVector::getRightCorner() const {
+Point SegmentVector::getRightCorner() const noexcept{
     return this->rightCorner;
 }
 
-Point SegmentVector::getVectorCoords() const {
+Point SegmentVector::getVectorCoords() const noexcept{
     return Point(rightCorner.x - leftCorner.x,
                  rightCorner.y - leftCorner.y,
                  rightCorner.z - leftCorner.z);
 }
 
-double SegmentVector::length() const {
+double SegmentVector::length() const noexcept{
     double dx = rightCorner.x - leftCorner.x;
     double dy = rightCorner.y - leftCorner.y;
     double dz = rightCorner.z - leftCorner.z;
@@ -36,7 +36,7 @@ double SegmentVector::length() const {
     return std::sqrt(dx * dx + dy * dy + dz * dz);
 }
 
-SegmentVector SegmentVector::operator+(const SegmentVector& other){
+SegmentVector SegmentVector::operator+(const SegmentVector& other) noexcept {
     Point v1 = this->getVectorCoords();
     Point v2 = other.getVectorCoords();
 
@@ -50,7 +50,7 @@ SegmentVector SegmentVector::operator+(const SegmentVector& other){
     return SegmentVector(newLeft, newRight);
 }
 
-SegmentVector& SegmentVector::operator+=(const SegmentVector& other) {
+SegmentVector& SegmentVector::operator+=(const SegmentVector& other) noexcept {
     Point v1 = this->getVectorCoords();
     Point v2 = other.getVectorCoords();
 
@@ -65,7 +65,7 @@ SegmentVector& SegmentVector::operator+=(const SegmentVector& other) {
     return *this;
 }
 
-SegmentVector SegmentVector::operator-(const SegmentVector& other) {
+SegmentVector SegmentVector::operator-(const SegmentVector& other) noexcept {
     Point v1 = this->getVectorCoords();
     Point v2 = other.getVectorCoords();
 
@@ -77,7 +77,7 @@ SegmentVector SegmentVector::operator-(const SegmentVector& other) {
     return SegmentVector(newLeft, newRight);
 }
 
-SegmentVector& SegmentVector::operator-=(const SegmentVector& other){
+SegmentVector& SegmentVector::operator-=(const SegmentVector& other) noexcept {
     Point v1 = this->getVectorCoords();
     Point v2 = other.getVectorCoords();
 
@@ -90,7 +90,7 @@ SegmentVector& SegmentVector::operator-=(const SegmentVector& other){
     return *this;
 }
 
-SegmentVector SegmentVector::operator*(const SegmentVector& other) {
+SegmentVector SegmentVector::operator*(const SegmentVector& other) const noexcept {
     Point v1 = this->getVectorCoords();
     Point v2 = other.getVectorCoords();
 
@@ -106,7 +106,7 @@ SegmentVector SegmentVector::operator*(const SegmentVector& other) {
     return SegmentVector(newLeft, newRight);
 }
 
-SegmentVector& SegmentVector::operator*=(const SegmentVector& other) {
+SegmentVector& SegmentVector::operator*=(const SegmentVector& other) noexcept {
     Point v1 = this->getVectorCoords();
     Point v2 = other.getVectorCoords();
 
@@ -123,7 +123,7 @@ SegmentVector& SegmentVector::operator*=(const SegmentVector& other) {
     return *this;
 }
 
-SegmentVector SegmentVector::operator*(const double value) {
+SegmentVector SegmentVector::operator*(const double value) noexcept {
     Point v1 = this->getVectorCoords();
 
     Point newLeft = this->leftCorner;
@@ -136,7 +136,7 @@ SegmentVector SegmentVector::operator*(const double value) {
     return SegmentVector(newLeft, newRight);
 }
 
-SegmentVector & SegmentVector::operator*=(const double value) {
+SegmentVector & SegmentVector::operator*=(const double value) noexcept {
     Point v1 = this->getVectorCoords();
 
     this->rightCorner.x = this->leftCorner.x + v1.x * value;
@@ -146,7 +146,7 @@ SegmentVector & SegmentVector::operator*=(const double value) {
     return *this;
 }
 
-SegmentVector SegmentVector::operator/(const SegmentVector& other) {
+SegmentVector SegmentVector::operator/(const SegmentVector& other) noexcept {
     Point v1 = this->getVectorCoords();
     Point v2 = other.getVectorCoords();
 
@@ -162,7 +162,7 @@ SegmentVector SegmentVector::operator/(const SegmentVector& other) {
     return SegmentVector(newLeft, newRight);
 }
 
-SegmentVector& SegmentVector::operator/=(const SegmentVector& other) {
+SegmentVector& SegmentVector::operator/=(const SegmentVector& other) noexcept {
     Point v1 = this->getVectorCoords();
     Point v2 = other.getVectorCoords();
 
@@ -179,35 +179,35 @@ SegmentVector& SegmentVector::operator/=(const SegmentVector& other) {
     return *this;
 }
 
-bool SegmentVector::operator>(const SegmentVector& other) const {
+bool SegmentVector::operator>(const SegmentVector& other) const noexcept {
     double len1 = this->length();
     double len2 = other.length();
 
     return len1 > len2;
 }
 
-bool SegmentVector::operator>=(const SegmentVector& other) const {
+bool SegmentVector::operator>=(const SegmentVector& other) const noexcept {
     double len1 = this->length();
     double len2 = other.length();
 
     return len1 >= len2;
 }
 
-bool SegmentVector::operator<(const SegmentVector& other) const {
+bool SegmentVector::operator<(const SegmentVector& other) const noexcept {
     double len1 = this->length();
     double len2 = other.length();
 
     return len1 < len2;
 }
 
-bool SegmentVector::operator<=(const SegmentVector& other) const {
+bool SegmentVector::operator<=(const SegmentVector& other) const noexcept {
     double len1 = this->length();
     double len2 = other.length();
 
     return len1 <= len2;
 }
 
-bool SegmentVector::operator==(const SegmentVector& other) const {
+bool SegmentVector::operator==(const SegmentVector& other) const noexcept {
     Point v1 = this->getVectorCoords();
     Point v2 = other.getVectorCoords();
 
@@ -216,11 +216,11 @@ bool SegmentVector::operator==(const SegmentVector& other) const {
            (std::abs(v1.z - v2.z) < EPSILON);
 }
 
-bool SegmentVector::operator!=(const SegmentVector &other) const {
+bool SegmentVector::operator!=(const SegmentVector &other) const noexcept {
     return !((*this) == other);
 }
 
-SegmentVector& SegmentVector::operator=(const SegmentVector& other) {
+SegmentVector& SegmentVector::operator=(const SegmentVector& other) noexcept {
     if (this == &other) {
         return *this;
     }
@@ -231,7 +231,7 @@ SegmentVector& SegmentVector::operator=(const SegmentVector& other) {
     return *this;
 }
 
-double SegmentVector::operator^(const SegmentVector &other) const {
+double SegmentVector::operator^(const SegmentVector &other) const noexcept {
     Point v1 = this->getVectorCoords();
     Point v2 = other.getVectorCoords();
 
@@ -245,7 +245,7 @@ double SegmentVector::operator^(const SegmentVector &other) const {
     return round(dotProduct / (len1 * len2) * FACTOR) / FACTOR;
 }
 
-std::ostream& operator<<(std::ostream &out, const SegmentVector &v) {
+std::ostream& operator<<(std::ostream &out, const SegmentVector &v) noexcept {
     out << "SegmentVector: ("
         << v.leftCorner.x << ", " << v.leftCorner.y << ", " << v.leftCorner.z
         << ") -> ("
@@ -255,7 +255,7 @@ std::ostream& operator<<(std::ostream &out, const SegmentVector &v) {
     return out;
 }
 
-std::istream& operator>>(std::istream& in, SegmentVector& v) {
+std::istream& operator>>(std::istream& in, SegmentVector& v) noexcept {
     double x1, y1, z1,
            x2, y2, z2;
 

@@ -16,6 +16,7 @@
  * где a_i - коэффициенты полинома. Класс поддерживает основные арифметические операции,
  * сравнение полиномов и вычисление значения полинома в заданной точке.
  */
+
 class Polynomial {
 private:
     double* coefficients;  ///< Указатель на массив коэффициентов полинома (коэффициенты хранятся от a_0 до a_n)
@@ -26,27 +27,27 @@ private:
      * @return true, если полином является нулевым (все коэффициенты равны нулю с учетом погрешности);
      * false в противном случае
      */
-    [[nodiscard]] bool isPolynomialZero() const;
+    [[nodiscard]] bool isPolynomialZero() const noexcept;
 
     /**
      * @brief Вычисление степени полинома.
      * @return Степень полинома (индекс последнего ненулевого коэффициента) или -1 для нулевого полинома
      */
-    [[nodiscard]] int calculateDegree() const;
+    [[nodiscard]] int calculateDegree() const noexcept;
 
     /**
      * @brief Удаление ведущих нулевых коэффициентов.
      * @details Метод уменьшает размер полинома, удаляя нулевые коэффициенты в старших разрядах.
      * Для нулевого полинома оставляет один коэффициент, равный нулю.
      */
-    void trimLeadingZeros();
+    void trimLeadingZeros() noexcept;
 
     /**
      * @brief Оптимизация коэффициентов полинома.
      * @details Метод заменяет коэффициенты, близкие к нулю (меньше EPSILON), на ноль.
      * Это помогает избежать накопления ошибок округления.
      */
-    void optimizeCoefficients();
+    void optimizeCoefficients() noexcept;
 
 public:
 
@@ -69,7 +70,7 @@ public:
      * @brief Конструктор копирования полинома.
      * @param other Полином, который нужно скопировать
      */
-    Polynomial(const Polynomial &);
+    Polynomial(const Polynomial &) noexcept;
 
     /**
      * @brief Конструктор перемещения полинома.
@@ -82,7 +83,7 @@ public:
      * @details Приводит полином к каноническому виду: удаляет ведущие нулевые коэффициенты
      * и оптимизирует малые коэффициенты.
      */
-    void normalize();
+    void normalize() noexcept;
 
     /**
      * @brief Оператор сложения полиномов.
@@ -90,7 +91,7 @@ public:
      * @return Новый полином, представляющий собой сумму текущего полинома и переданного
      * @details Сложение выполняется поэлементно для коэффициентов одинаковой степени.
      */
-    Polynomial operator+(const Polynomial &);
+    Polynomial operator+(const Polynomial &) noexcept;
 
     /**
      * @brief Оператор присваивающего сложения.
@@ -98,7 +99,7 @@ public:
      * @return Ссылка на измененный текущий полином
      * @details Сложение выполняется поэлементно для коэффициентов одинаковой степени.
      */
-    Polynomial& operator+=(const Polynomial &);
+    Polynomial& operator+=(const Polynomial &) noexcept;
 
     /**
      * @brief Оператор вычитания полиномов.
@@ -106,7 +107,7 @@ public:
      * @return Новый полином, представляющий собой разность текущего полинома и переданного
      * @details Вычитание выполняется поэлементно для коэффициентов одинаковой степени.
      */
-    Polynomial operator-(const Polynomial &);
+    Polynomial operator-(const Polynomial &) noexcept;
 
     /**
      * @brief Оператор присваивающего вычитания.
@@ -114,7 +115,7 @@ public:
      * @return Ссылка на измененный текущий полином
      * @details Вычитание выполняется поэлементно для коэффициентов одинаковой степени.
      */
-    Polynomial& operator-=(const Polynomial &);
+    Polynomial& operator-=(const Polynomial &) noexcept;
 
     /**
      * @brief Оператор умножения полиномов.
@@ -122,7 +123,7 @@ public:
      * @return Новый полином, представляющий собой произведение текущего полинома и переданного
      * @details Умножение выполняется по правилу умножения многочленов.
      */
-    Polynomial operator*(const Polynomial &);
+    Polynomial operator*(const Polynomial &) noexcept;
 
     /**
      * @brief Оператор присваивающего умножения.
@@ -130,7 +131,7 @@ public:
      * @return Ссылка на измененный текущий полином
      * @details Умножение выполняется по правилу умножения многочленов.
      */
-    Polynomial& operator*=(const Polynomial &);
+    Polynomial& operator*=(const Polynomial &) noexcept;
 
     /**
      * @brief Оператор деления полиномов.
@@ -156,14 +157,14 @@ public:
      * @return true, если полиномы эквивалентны (с учетом погрешности EPSILON); false в противном случае
      * @details Сравнение учитывает нормализованный вид полиномов и погрешность вычислений.
      */
-    bool operator==(const Polynomial &) const;
+    bool operator==(const Polynomial &) const noexcept;
 
     /**
      * @brief Оператор сравнения на неравенство.
      * @param other Полином для сравнения
      * @return true, если полиномы не эквивалентны; false в противном случае
      */
-    bool operator!=(const Polynomial &) const;
+    bool operator!=(const Polynomial &) const noexcept;
 
     /**
      * @brief Оператор присваивания.
@@ -171,7 +172,7 @@ public:
      * @return Ссылка на текущий полином после присваивания
      * @details Реализует защиту от самоприсваивания и корректное управление памятью.
      */
-    Polynomial& operator=(const Polynomial &);
+    Polynomial& operator=(const Polynomial &) noexcept;
 
     /**
      * @brief Оператор доступа к коэффициенту по индексу.
@@ -179,7 +180,7 @@ public:
      * @return Значение коэффициента при x^index
      * @details Для индексов, выходящих за степень полинома, возвращается 0.
      */
-    double operator[](int) const;
+    double operator[](int) const noexcept;
 
     /**
      * @brief Оператор вычисления значения полинома в точке.
@@ -187,7 +188,7 @@ public:
      * @return Значение полинома в заданной точке
      * @details Вычисление степени полинома при заданном value.
      */
-    double operator()(double) const;
+    double operator()(double) const noexcept;
 
     /**
      * @brief Оператор вывода полинома в поток.
@@ -196,7 +197,7 @@ public:
      * @return Ссылка на поток вывода после записи данных
      * @details Форматирует вывод в виде "Polynomial of degree N with coefficients: [a_0, a_1, ..., a_N]"
      */
-    friend std::ostream &operator<<(std::ostream &, const Polynomial &);
+    friend std::ostream &operator<<(std::ostream &, const Polynomial &) noexcept;
 
     /**
      * @brief Оператор ввода полинома из потока.
@@ -205,7 +206,7 @@ public:
      * @return Ссылка на поток ввода после чтения данных
      * @details Ожидает на вход степень полинома и затем коэффициенты от a_0 до a_degree
      */
-    friend std::istream &operator>>(std::istream &, Polynomial &);
+    friend std::istream &operator>>(std::istream &, Polynomial &) noexcept;
 };
 
 

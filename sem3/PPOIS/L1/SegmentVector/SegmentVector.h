@@ -36,7 +36,7 @@ struct Point {
      * @param other Точка для сравнения
      * @return true, если координаты точек совпадают; false в противном случае
      */
-    bool operator==(const Point &other) const {
+    bool operator==(const Point &other) const noexcept {
         return this->x == other.x && this->y == other.y && this->z == other.z;
     }
 };
@@ -76,25 +76,25 @@ public:
      * @brief Получение точки начала вектора.
      * @return Точка начала вектора (левый конец отрезка)
      */
-    [[nodiscard]] Point getLeftCorner() const;
+    [[nodiscard]] Point getLeftCorner() const noexcept;
 
     /**
      * @brief Получение точки конца вектора.
      * @return Точка конца вектора (правый конец отрезка)
      */
-    [[nodiscard]] Point getRightCorner() const;
+    [[nodiscard]] Point getRightCorner() const noexcept;
 
     /**
      * @brief Получение координат вектора.
      * @return Точка, представляющая векторные координаты (разность координат конца и начала)
      */
-    [[nodiscard]] Point getVectorCoords() const;
+    [[nodiscard]] Point getVectorCoords() const noexcept;
 
     /**
      * @brief Вычисление длины вектора.
      * @return Длина вектора, вычисленная по формуле Пифагора (корень разности квадратов координат)
      */
-    [[nodiscard]] double length() const;
+    [[nodiscard]] double length() const noexcept;
 
     /**
      * @brief Оператор сложения векторов.
@@ -102,14 +102,14 @@ public:
      * @return Новый вектор, полученный путем сложения координат текущего вектора с координатами переданного вектора
      * @details Начало результирующего вектора совпадает с началом текущего вектора
      */
-    SegmentVector operator+(const SegmentVector &);
+    SegmentVector operator+(const SegmentVector &) noexcept;
 
     /**
      * @brief Оператор присваивающего сложения.
      * @param other Вектор для сложения
      * @return Ссылка на измененный текущий вектор
      */
-    SegmentVector& operator+=(const SegmentVector &);
+    SegmentVector& operator+=(const SegmentVector &) noexcept;
 
     /**
      * @brief Оператор вычитания векторов.
@@ -117,14 +117,14 @@ public:
      * @return Новый вектор, полученный путем вычитания координат переданного вектора из координат текущего
      * @details Начало результирующего вектора совпадает с началом текущего вектора
      */
-    SegmentVector operator-(const SegmentVector &);
+    SegmentVector operator-(const SegmentVector &) noexcept;
 
     /**
      * @brief Оператор присваивающего вычитания.
      * @param other Вектор для вычитания
      * @return Ссылка на измененный текущий вектор
      */
-    SegmentVector& operator-=(const SegmentVector &);
+    SegmentVector& operator-=(const SegmentVector &) noexcept;
 
     /**
      * @brief Оператор векторного произведения.
@@ -132,14 +132,14 @@ public:
      * @return Новый вектор, представляющий собой векторное произведение текущего вектора на переданный
      * @details Начало результирующего вектора совпадает с началом текущего вектора
      */
-    SegmentVector operator*(const SegmentVector &);
+    SegmentVector operator*(const SegmentVector &) const noexcept;
 
     /**
      * @brief Оператор присваивающего векторного произведения.
      * @param other Вектор для вычисления векторного произведения
      * @return Ссылка на измененный текущий вектор
      */
-    SegmentVector& operator*=(const SegmentVector &);
+    SegmentVector& operator*=(const SegmentVector &) noexcept;
 
     /**
      * @brief Оператор умножения вектора на скаляр.
@@ -147,14 +147,14 @@ public:
      * @return Новый вектор, полученный умножением координат текущего вектора на заданное число
      * @details Начало результирующего вектора совпадает с началом текущего вектора
      */
-    SegmentVector operator*(double);
+    SegmentVector operator*(double) noexcept;
 
     /**
      * @brief Оператор присваивающего умножения на скаляр.
      * @param value Скалярное значение для умножения
      * @return Ссылка на измененный текущий вектор
      */
-    SegmentVector& operator*=(double);
+    SegmentVector& operator*=(double) noexcept;
 
     /**
      * @brief Оператор поэлементного деления векторов.
@@ -163,7 +163,7 @@ public:
      * @throw std::invalid_argument при попытке деления на нулевую компоненту
      * @details Начало результирующего вектора совпадает с началом текущего вектора
      */
-    SegmentVector operator/(const SegmentVector &);
+    SegmentVector operator/(const SegmentVector &) noexcept;
 
     /**
      * @brief Оператор присваивающего поэлементного деления.
@@ -171,49 +171,49 @@ public:
      * @return Ссылка на измененный текущий вектор
      * @throw std::invalid_argument при попытке деления на нулевую компоненту
      */
-    SegmentVector& operator/=(const SegmentVector &);
+    SegmentVector& operator/=(const SegmentVector &) noexcept;
 
     /**
      * @brief Оператор сравнения "больше".
      * @param other Вектор для сравнения
      * @return true, если длина текущего вектора больше длины переданного; false в противном случае
      */
-    bool operator>(const SegmentVector &) const;
+    bool operator>(const SegmentVector &) const noexcept;
 
     /**
      * @brief Оператор сравнения "больше или равно".
      * @param other Вектор для сравнения
      * @return true, если длина текущего вектора больше или равна длине переданного; false в противном случае
      */
-    bool operator>=(const SegmentVector &) const;
+    bool operator>=(const SegmentVector &) const noexcept;
 
     /**
      * @brief Оператор сравнения "меньше".
      * @param other Вектор для сравнения
      * @return true, если длина текущего вектора меньше длины переданного; false в противном случае
      */
-    bool operator<(const SegmentVector &) const;
+    bool operator<(const SegmentVector &) const noexcept;
 
     /**
      * @brief Оператор сравнения "меньше или равно".
      * @param other Вектор для сравнения
      * @return true, если длина текущего вектора меньше или равна длине переданного; false в противном случае
      */
-    bool operator<=(const SegmentVector &) const;
+    bool operator<=(const SegmentVector &) const noexcept;
 
     /**
      * @brief Оператор сравнения на равенство.
      * @param other Вектор для сравнения
      * @return true, если векторы эквивалентны (с учетом погрешности EPSILON = 1e-9); false в противном случае
      */
-    bool operator==(const SegmentVector &) const;
+    bool operator==(const SegmentVector &) const noexcept;
 
     /**
      * @brief Оператор сравнения на неравенство.
      * @param other Вектор для сравнения
      * @return true, если векторы не эквивалентны; false в противном случае
      */
-    bool operator!=(const SegmentVector &) const;
+    bool operator!=(const SegmentVector &) const noexcept;
 
     /**
      * @brief Оператор присваивания.
@@ -221,7 +221,7 @@ public:
      * @return Ссылка на текущий вектор после присваивания
      * @details Реализует защиту от самоприсваивания
      */
-    SegmentVector& operator=(const SegmentVector &);
+    SegmentVector& operator=(const SegmentVector &) noexcept;
 
     /**
      * @brief Оператор вычисления косинуса угла между векторами.
@@ -229,7 +229,7 @@ public:
      * @return Значение косинуса угла между текущим вектором и переданным
      * @throw std::invalid_argument при попытке вычисления с нулевым вектором
      */
-    double operator^(const SegmentVector &) const;
+    double operator^(const SegmentVector &) const noexcept;
 
     /**
      * @brief Оператор вывода вектора в поток.
@@ -238,7 +238,7 @@ public:
      * @return Ссылка на поток вывода после записи данных
      * @details Форматирует вывод в виде "SegmentVector: (x1, y1, z1) -> (x2, y2, z2);"
      */
-    friend std::ostream &operator<<(std::ostream &, const SegmentVector &);
+    friend std::ostream &operator<<(std::ostream &, const SegmentVector &) noexcept;
 
     /**
      * @brief Оператор ввода вектора из потока.
@@ -247,7 +247,7 @@ public:
      * @return Ссылка на поток ввода после чтения данных
      * @details Ожидает на вход шесть чисел, представляющих координаты начальной и конечной точек вектора
      */
-    friend std::istream &operator>>(std::istream &, SegmentVector &);
+    friend std::istream &operator>>(std::istream &, SegmentVector &) noexcept;
 };
 
 #endif //L1_VECTOR_H

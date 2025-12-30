@@ -18,7 +18,7 @@ Polynomial::~Polynomial() {
     delete[] this->coefficients;
 }
 
-Polynomial::Polynomial(const Polynomial &other) : size(other.size) {
+Polynomial::Polynomial(const Polynomial &other) noexcept : size(other.size) {
     this->coefficients = new double[this->size];
 
     for (size_t i = 0; i < this->size; ++i) {
@@ -35,11 +35,11 @@ Polynomial::Polynomial(Polynomial&& other) noexcept
 }
 
 
-bool Polynomial::isPolynomialZero() const {
+bool Polynomial::isPolynomialZero() const noexcept {
     return calculateDegree() == -1;
 }
 
-int Polynomial::calculateDegree() const {
+int Polynomial::calculateDegree() const noexcept {
     for (int i = this->size - 1; i >= 0; --i) {
         if (std::abs(coefficients[i]) > EPSILON) {
             return i;
@@ -48,7 +48,7 @@ int Polynomial::calculateDegree() const {
     return -1;
 }
 
-void Polynomial::trimLeadingZeros() {
+void Polynomial::trimLeadingZeros() noexcept {
     int newDegree = this->calculateDegree(); // Last non-zero index
 
     if (newDegree == -1) {
@@ -74,7 +74,7 @@ void Polynomial::trimLeadingZeros() {
     this->size = newSize;
 }
 
-void Polynomial::optimizeCoefficients() {
+void Polynomial::optimizeCoefficients() noexcept {
     for (int i = 0; i < this->size; ++i) {
         if (std::abs(this->coefficients[i]) < EPSILON) {
             this->coefficients[i] = 0;
@@ -82,18 +82,18 @@ void Polynomial::optimizeCoefficients() {
     }
 }
 
-void Polynomial::normalize() {
+void Polynomial::normalize() noexcept {
     this->optimizeCoefficients();
     this->trimLeadingZeros();
 }
 
-Polynomial Polynomial::operator+(const Polynomial& other) {
+Polynomial Polynomial::operator+(const Polynomial& other) noexcept {
     Polynomial result(*this);
     result += other;
     return result;
 }
 
-Polynomial& Polynomial::operator+=(const Polynomial& other) {
+Polynomial& Polynomial::operator+=(const Polynomial& other) noexcept {
     if (other.size > this->size) {
         auto* newCoefficients = new double[other.size]();
 
@@ -115,13 +115,13 @@ Polynomial& Polynomial::operator+=(const Polynomial& other) {
     return (*this);
 }
 
-Polynomial Polynomial::operator-(const Polynomial& other) {
+Polynomial Polynomial::operator-(const Polynomial& other) noexcept {
     Polynomial result(*this);
     result -= other;
     return result;
 }
 
-Polynomial& Polynomial::operator-=(const Polynomial& other) {
+Polynomial& Polynomial::operator-=(const Polynomial& other) noexcept {
     if (other.size > this->size) {
         auto* newCoefficients = new double[other.size]();
 
@@ -143,13 +143,13 @@ Polynomial& Polynomial::operator-=(const Polynomial& other) {
     return (*this);
 }
 
-Polynomial Polynomial::operator*(const Polynomial& other) {
+Polynomial Polynomial::operator*(const Polynomial& other) noexcept {
     Polynomial result(*this);
     result *= other;
     return result;
 }
 
-Polynomial& Polynomial::operator*=(const Polynomial& other) {
+Polynomial& Polynomial::operator*=(const Polynomial& other) noexcept {
     size_t newSize = this->size + other.size;
     auto* newCoefficients = new double[newSize]();
 
@@ -234,7 +234,7 @@ Polynomial& Polynomial::operator/=(const Polynomial& other) {
     return (*this);
 }
 
-bool Polynomial::operator==(const Polynomial& other) const {
+bool Polynomial::operator==(const Polynomial& other) const noexcept {
     if (this->size != other.size)
         return false;
 
@@ -247,11 +247,11 @@ bool Polynomial::operator==(const Polynomial& other) const {
     return true;
 }
 
-bool Polynomial::operator!=(const Polynomial& other) const {
+bool Polynomial::operator!=(const Polynomial& other) const noexcept {
     return !((*this) == other);
 }
 
-Polynomial & Polynomial::operator=(const Polynomial& other) {
+Polynomial & Polynomial::operator=(const Polynomial& other) noexcept {
     if (this == &other) {
         return (*this);
     }
@@ -268,14 +268,14 @@ Polynomial & Polynomial::operator=(const Polynomial& other) {
     return (*this);
 }
 
-double Polynomial::operator[](int index) const {
+double Polynomial::operator[](int index) const noexcept {
     if (index >= this->size || index < 0)
         return 0;
 
     return coefficients[index];
 }
 
-double Polynomial::operator()(double value) const {
+double Polynomial::operator()(double value) const noexcept{
     double answer = 0;
     double powCoefficient = 1;
 
@@ -287,7 +287,7 @@ double Polynomial::operator()(double value) const {
     return answer;
 }
 
-std::ostream& operator<<(std::ostream &out, const Polynomial &p) {
+std::ostream& operator<<(std::ostream &out, const Polynomial &p) noexcept {
     out << "Polynomial of degree " << p.size - 1 << " with coefficients: [";
     for (int i = 0; i < p.size - 1; ++i) {
         out << p.coefficients[i] << ", ";
@@ -296,7 +296,7 @@ std::ostream& operator<<(std::ostream &out, const Polynomial &p) {
     return out;
 }
 
-std::istream& operator>>(std::istream &in, Polynomial &p) {
+std::istream& operator>>(std::istream &in, Polynomial &p) noexcept {
     size_t degree;
     in >> degree;
 
