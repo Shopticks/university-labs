@@ -1,0 +1,20 @@
+[project]
+name = "metro"
+version = "0.0.1"
+authors = [{name = "Ivan Zakharenkau", email = "vawashop@gmail.com"}]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+
+[tool.coverage.run]
+source = ["src"]
+omit = [
+    "*/__main__.py",
+    "*/__init__.py",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+]
