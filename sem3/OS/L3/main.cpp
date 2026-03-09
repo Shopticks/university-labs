@@ -23,7 +23,7 @@ void compute_thread(SafeQueue<std::shared_ptr<Point>> &compute_queue, int n_poin
         double y = F(x);
         auto point = std::make_shared<Point>(x, y); // Add results for other threads
         compute_queue.push(point);                  // Safe pushing
-
+        
         // !!DEBUG ONLY!!
         // std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
@@ -91,18 +91,18 @@ void log_thread(SafeQueue<std::shared_ptr<Point>> &in_queue, const std::string &
 
             // Conversion of time into a presentable view
             auto compute_ms = std::chrono::duration_cast<std::chrono::milliseconds>(
-                                  p->compute_time.time_since_epoch())
-                                  .count();
+                                    p->compute_time.time_since_epoch())
+                                    .count();
             auto write_ms = std::chrono::duration_cast<std::chrono::milliseconds>(
-                                p->write_time.time_since_epoch())
-                                .count();
+                                    p->write_time.time_since_epoch())
+                                    .count();
             auto required_time = std::chrono::duration_cast<std::chrono::milliseconds>(
-                                     p->write_time.time_since_epoch() - p->compute_time.time_since_epoch())
-                                     .count();
+                                    p->write_time.time_since_epoch() - p->compute_time.time_since_epoch())
+                                    .count();
 
             // Write time info into file
-            log << "Computed at: " << compute_ms
-                << " ms, Written at: " << write_ms << " ms. "
+            log << "Computed at: " << compute_ms << " ms, "
+                << "Written at: " << write_ms << " ms. "
                 << "Time required: " << required_time << " ms\n";
             log.flush();
         }

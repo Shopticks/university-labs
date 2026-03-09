@@ -15,12 +15,12 @@ int main() {
         std::cout << "mysh> ";
         std::string line;
         if (!std::getline(std::cin, line) || line == "exit") break; // EOF or input error
-
+        
         std::istringstream iss(line);
         std::vector<std::string> args;
         std::string arg;
 
-        
+
         while (iss >> arg) {
             args.push_back(arg);
         }

@@ -4,7 +4,7 @@ project(L2)
 set(CMAKE_CXX_STANDARD 23)
 
 add_executable(L2
-    Individual_Task_1.cpp
+    Main_Task.cpp
 )
 
 # add_executable(L2

@@ -24,9 +24,10 @@ int main() {
         std::cin >> parent[i];
     }
     for (int i = 0; i < N; ++i) {
-        if (parent[i] < 0 || parent[i] > N)
+        if (parent[i] < 0 || parent[i] > N){
             std::cerr << "Value need to be >= 0. Reenter value for " << i << " process: ";
             std::cin >> parent[i--];
+        }
     }
 
     // Get execution process number
@@ -44,7 +45,7 @@ int main() {
 
     // Get execution command
     std::cout   << "Enter the command to be executed by the "
-                << execNumber << " process: ";
+                << execNumber + 1 << " process: ";
     std::cin.ignore();
 
     std::string line;
@@ -71,7 +72,7 @@ int main() {
     int myNumber = 1;
 
     // For every child process
-    for (int childNum = 1; childNum <= static_cast<int>(N); ++childNum) {
+    for (int childNum = 1; childNum <= N; ++childNum) {
         // If the process is a parent of the child's process
         if (parent[childNum] == myNumber) {
             pid_t pid = fork();
@@ -100,7 +101,7 @@ int main() {
 
     std::cout << "Process " << getpid() << " with parent " << getppid() << " completes his work." << std::endl;
 
-    sleep(10); // To check to see all processes in some activity monitor
+    sleep(15); // To check to see all processes in some activity monitor
 
     return 0;
 }

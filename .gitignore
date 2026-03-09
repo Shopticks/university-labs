@@ -5,3 +5,8 @@ Google_tests
 googletest
 Doxygen
 *.DS_Store*
+sem1
+sem2
+sem3
+cmake-build*
+build
