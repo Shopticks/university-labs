@@ -21,7 +21,7 @@ class TicketOffice:
             office_id (str): Unique identifier for the ticket office.
         """
         self._id = office_id
-        self._balance = Money(Decimal('0.00'))
+        self._balance: Money = Money(Decimal('0.00'))
         
         self._catalog: Dict[Tuple[TicketType, int], Money] = {
             (TicketType.BY_TRIPS, 1): Money(Decimal('0.90')),

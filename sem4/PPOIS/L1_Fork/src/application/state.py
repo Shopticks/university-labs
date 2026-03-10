@@ -11,5 +11,5 @@ class AppState:
         self.routes: Dict[str, Route] = {}
         self.trains: Dict[str, Train] = {}
         self.passengers: Dict[str, Passenger] = {}
-        self.schedule = ScheduleService()
+        self.schedule: ScheduleService = ScheduleService()
         self.save_file = "metro_state.json"

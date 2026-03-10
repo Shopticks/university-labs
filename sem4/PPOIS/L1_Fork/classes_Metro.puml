@@ -1,0 +1,364 @@
+@startuml classes_Metro
+set namespaceSeparator none
+class "ActiveDispatch" as src.application.schedule.ActiveDispatch #99DDFF {
+  current_stop_index
+  is_dwelling : bool
+  route
+  timer
+  train
+}
+class "AppState" as src.application.state.AppState #99DDFF {
+  passengers : Dict[str, Passenger]
+  routes : Dict[str, Route]
+  save_file
+  schedule
+  stations : Dict[str, Station]
+  trains : Dict[str, Train]
+}
+class "BoardingService" as src.application.boarding.BoardingService #99DDFF {
+  process_regular_stop(train: Train, station: Station, platform: Platform) -> List[Passenger]
+  process_terminal_stop(train: Train, station: Station) -> List[Passenger]
+}
+class "<color:red>InsufficientFundsError</color>" as src.exceptions.InsufficientFundsError #77AADD {
+}
+class "<color:red>InvalidTicketRequestError</color>" as src.exceptions.InvalidTicketRequestError #77AADD {
+}
+class "LOCKED" as src.domain.models.turnstile.TurnstileState.LOCKED #44BB99 {
+  name
+  value
+}
+class "LOCKED_DOWN" as src.domain.models.turnstile.TurnstileState.LOCKED_DOWN #44BB99 {
+  name
+  value
+}
+class "MetroCLIApp" as src.presentation.app.MetroCLIApp #AAAA00 {
+  state
+  storage
+  run()
+}
+class "MetroSerializer" as src.infrastructure.storage.MetroSerializer #BBCC33 {
+  dispatch_from_dict(data: dict, trains: dict[str, Train], routes: dict[str, Route]) -> ActiveDispatch
+  dispatch_to_dict(dispatch: ActiveDispatch) -> dict
+  passenger_from_dict(data: dict) -> Passenger
+  passenger_to_dict(passenger: Passenger) -> dict
+  platform_from_dict(data: dict, passengers: dict[str, Passenger]) -> Platform
+  platform_to_dict(platform: Platform) -> dict
+  route_from_dict(data: dict, stations: dict[str, Station]) -> Route
+  route_to_dict(route: Route) -> dict
+  state_from_dict(data: dict[str, Any]) -> AppState
+  state_to_dict(state: AppState) -> dict[str, Any]
+  station_from_dict(data: dict, passengers: dict[str, Passenger]) -> Station
+  station_to_dict(station: Station) -> dict
+  ticket_from_dict(data: dict) -> Ticket
+  ticket_office_from_dict(data: dict) -> TicketOffice
+  ticket_office_to_dict(office: TicketOffice) -> dict
+  ticket_to_dict(ticket: Ticket) -> dict
+  train_from_dict(data: dict, passengers: dict[str, Passenger]) -> Train
+  train_to_dict(train: Train) -> dict
+  turnstile_from_dict(data: dict) -> Turnstile
+  turnstile_to_dict(turnstile: Turnstile) -> dict
+}
+class "<color:red>MetroSystemError</color>" as src.exceptions.MetroSystemError #77AADD {
+}
+class "Money" as src.domain.models.money.Money #44BB99 {
+  amount
+}
+class "NoneType" as builtins.NoneType #grey {
+}
+class "Passenger" as src.domain.models.passenger.Passenger #44BB99 {
+  destination_station_id : Optional[str]
+  id : str
+  name : str
+  ticket : Optional[Ticket]
+  buy_ticket(ticket: Ticket) -> None
+  discard_ticket() -> None
+  set_destination(station_id: str) -> None
+}
+class "Platform" as src.domain.models.platform.Platform #44BB99 {
+  id : str
+  number : int
+  waiting_passengers : List[Passenger]
+  add_passenger(passenger: Passenger) -> None
+  add_passengers(passengers: List[Passenger]) -> None
+  remove_passengers(passengers_to_remove: List[Passenger]) -> None
+}
+class "<color:red>PlatformEmptyError</color>" as src.exceptions.PlatformEmptyError #77AADD {
+}
+class "<color:red>PlatformError</color>" as src.exceptions.PlatformError #77AADD {
+}
+class "<color:red>PlatformOccupiedError</color>" as src.exceptions.PlatformOccupiedError #77AADD {
+}
+class "<color:red>PlatformOperationError</color>" as src.exceptions.PlatformOperationError #77AADD {
+}
+class "Route" as src.domain.models.route.Route #44BB99 {
+  id : str
+  name : str
+  stops : List[RouteStop]
+  add_stop(stop: RouteStop) -> None
+}
+class "RouteStop" as src.domain.models.route.RouteStop #44BB99 {
+  platform_number
+  station
+  travel_time_to_next
+}
+class "<color:red>SalesError</color>" as src.exceptions.SalesError #77AADD {
+}
+class "SalesService" as src.application.sales.SalesService #99DDFF {
+  process_ticket_purchase(passenger: Passenger, office: TicketOffice, ticket_type: TicketType, trips: int, tendered_money: Money) -> Tuple[Ticket, Money]
+}
+class "ScheduleService" as src.application.schedule.ScheduleService #99DDFF {
+  active_dispatches : List[ActiveDispatch]
+  current_time_minutes : int
+  current_time_str : str
+  dispatch_train(train: Train, route: Route) -> None
+  tick() -> None
+}
+class "Station" as src.domain.models.station.Station #44BB99 {
+  concourse_passengers : List[Passenger]
+  id : str
+  name : str
+  platforms : List[Platform]
+  ticket_offices : List[TicketOffice]
+  turnstiles : List[Turnstile]
+  add_platform(platform: Platform) -> None
+  add_ticket_office(office: TicketOffice) -> None
+  add_turnstile(turnstile: Turnstile) -> None
+  enter_concourse(passenger: Passenger) -> None
+  exit_station(passenger: Passenger) -> None
+  get_platform(number: int) -> Platform
+  get_ticket_office(office_id: str) -> TicketOffice
+  lift_lockdown() -> None
+  lockdown() -> None
+  return_to_concourse(passenger: Passenger, platform_number: int) -> None
+  route_to_platform(passenger: Passenger, platform_number: int) -> None
+}
+class "<color:red>StationError</color>" as src.exceptions.StationError #77AADD {
+}
+class "StorageService" as src.infrastructure.storage.StorageService #BBCC33 {
+  filepath : str
+  load(state: AppState) -> bool
+  save(state: AppState) -> bool
+}
+class "Ticket" as src.domain.models.ticket.Ticket #44BB99 {
+  current_trips : int
+  expiration_date : datetime
+  expires_at : datetime
+  id : str
+  is_valid : bool
+  max_trips : int
+  remaining_trips : Union[int, float]
+  ticket_type : TicketType
+  use() -> None
+}
+class "<color:red>TicketError</color>" as src.exceptions.TicketError #77AADD {
+}
+class "<color:red>TicketExhaustedError</color>" as src.exceptions.TicketExhaustedError #77AADD {
+}
+class "<color:red>TicketExpiredError</color>" as src.exceptions.TicketExpiredError #77AADD {
+}
+class "TicketOffice" as src.domain.models.ticket_office.TicketOffice #44BB99 {
+  balance : Money
+  id : str
+  get_price(ticket_type: TicketType, trips: int) -> Money
+  sell_ticket(ticket_type: TicketType, trips: int, tendered_money: Money) -> Tuple[Ticket, Money]
+}
+class "TicketType" as src.domain.models.ticket.TicketType #44BB99 {
+  name
+}
+class "Train" as src.domain.models.train.Train #44BB99 {
+  capacity : int
+  free_seats : int
+  id : str
+  needs_maintenance : bool
+  passenger_count : int
+  passengers : List[Passenger]
+  state : TrainState
+  stops_count : int
+  stops_for_service : int
+  alight(passengers_to_remove: List[Passenger]) -> None
+  board(passenger: Passenger) -> None
+  maintain() -> None
+  record_stop() -> None
+  set_state(new_state: TrainState) -> None
+  unload_all() -> List[Passenger]
+}
+class "<color:red>TrainError</color>" as src.exceptions.TrainError #77AADD {
+}
+class "<color:red>TrainFullError</color>" as src.exceptions.TrainFullError #77AADD {
+}
+class "<color:red>TrainNeedsMaintenanceError</color>" as src.exceptions.TrainNeedsMaintenanceError #77AADD {
+}
+class "<color:red>TrainNotEmptyError</color>" as src.exceptions.TrainNotEmptyError #77AADD {
+}
+class "TrainState" as src.domain.models.train.TrainState #44BB99 {
+  name
+}
+class "TransitService" as src.application.transit.TransitService #99DDFF {
+  process_turnstile_passage(ticket: Ticket, turnstile: Turnstile) -> None
+}
+class "Turnstile" as src.domain.models.turnstile.Turnstile #44BB99 {
+  id : str
+  state : TurnstileState
+  lock() -> None
+  lockdown() -> None
+  pass_through() -> None
+  remove_lockdown() -> None
+  unlock() -> None
+}
+class "<color:red>TurnstileAlreadyUnlockedError</color>" as src.exceptions.TurnstileAlreadyUnlockedError #77AADD {
+}
+class "<color:red>TurnstileError</color>" as src.exceptions.TurnstileError #77AADD {
+}
+class "<color:red>TurnstileLockedDownError</color>" as src.exceptions.TurnstileLockedDownError #77AADD {
+}
+class "<color:red>TurnstileLockedError</color>" as src.exceptions.TurnstileLockedError #77AADD {
+}
+class "TurnstileState" as src.domain.models.turnstile.TurnstileState #44BB99 {
+  name
+}
+class "UNLOCKED" as src.domain.models.turnstile.TurnstileState.UNLOCKED #44BB99 {
+  name
+  value
+}
+class "denominator" as builtins.int.denominator #grey {
+}
+class "imag" as builtins.int.imag #grey {
+}
+class "int" as builtins.int #grey {
+  {abstract}as_integer_ratio()
+  {abstract}bit_count()
+  {abstract}bit_length()
+  {abstract}conjugate()
+  {abstract}is_integer()
+  {abstract}to_bytes()
+}
+class "numerator" as builtins.int.numerator #grey {
+}
+class "object" as builtins.object #grey {
+}
+class "real" as builtins.int.real #grey {
+}
+class "str" as builtins.str #grey {
+  capitalize()
+  {abstract}casefold()
+  center(width, fillchar)
+  count(sub, start, end)
+  decode(encoding, errors)
+  encode(encoding, errors)
+  {abstract}endswith()
+  {abstract}expandtabs()
+  find(sub, start, end)
+  format()
+  {abstract}format_map()
+  index(sub, start, end)
+  {abstract}isalnum()
+  {abstract}isalpha()
+  {abstract}isascii()
+  {abstract}isdecimal()
+  {abstract}isdigit()
+  {abstract}isidentifier()
+  {abstract}islower()
+  {abstract}isnumeric()
+  {abstract}isprintable()
+  {abstract}isspace()
+  {abstract}istitle()
+  {abstract}isupper()
+  join(iterable)
+  ljust(width, fillchar)
+  lower()
+  lstrip(chars)
+  {abstract}partition()
+  {abstract}removeprefix()
+  {abstract}removesuffix()
+  replace(old, new, count)
+  {abstract}rfind()
+  {abstract}rindex()
+  rjust(width, fillchar)
+  {abstract}rpartition()
+  {abstract}rsplit()
+  rstrip(chars)
+  {abstract}split()
+  {abstract}splitlines()
+  {abstract}startswith()
+  strip(chars)
+  swapcase()
+  title()
+  {abstract}translate()
+  upper()
+  {abstract}zfill()
+}
+class "type" as builtins.type #grey {
+  {abstract}mro()
+}
+builtins.NoneType --|> builtins.object
+builtins.int --|> builtins.object
+builtins.int.denominator --|> builtins.object
+builtins.int.imag --|> builtins.object
+builtins.int.numerator --|> builtins.object
+builtins.int.real --|> builtins.object
+builtins.str --|> builtins.object
+builtins.type --|> builtins.object
+src.application.boarding.BoardingService --|> builtins.object
+src.application.sales.SalesService --|> builtins.object
+src.application.schedule.ActiveDispatch --|> builtins.object
+src.application.schedule.ScheduleService --|> builtins.object
+src.application.state.AppState --|> builtins.object
+src.application.transit.TransitService --|> builtins.object
+src.domain.models.money.Money --|> builtins.object
+src.domain.models.passenger.Passenger --|> builtins.object
+src.domain.models.platform.Platform --|> builtins.object
+src.domain.models.route.Route --|> builtins.object
+src.domain.models.route.RouteStop --|> builtins.object
+src.domain.models.station.Station --|> builtins.object
+src.domain.models.ticket.Ticket --|> builtins.object
+src.domain.models.ticket.TicketType --|> builtins.NoneType
+src.domain.models.ticket_office.TicketOffice --|> builtins.object
+src.domain.models.train.Train --|> builtins.object
+src.domain.models.train.TrainState --|> builtins.NoneType
+src.domain.models.turnstile.Turnstile --|> builtins.object
+src.domain.models.turnstile.TurnstileState --|> builtins.NoneType
+src.domain.models.turnstile.TurnstileState.LOCKED --|> builtins.NoneType
+src.domain.models.turnstile.TurnstileState.LOCKED_DOWN --|> builtins.NoneType
+src.domain.models.turnstile.TurnstileState.UNLOCKED --|> builtins.NoneType
+src.exceptions.InsufficientFundsError --|> src.exceptions.SalesError
+src.exceptions.InvalidTicketRequestError --|> src.exceptions.SalesError
+src.exceptions.PlatformEmptyError --|> src.exceptions.PlatformError
+src.exceptions.PlatformError --|> src.exceptions.MetroSystemError
+src.exceptions.PlatformOccupiedError --|> src.exceptions.PlatformError
+src.exceptions.PlatformOperationError --|> src.exceptions.MetroSystemError
+src.exceptions.SalesError --|> src.exceptions.MetroSystemError
+src.exceptions.StationError --|> src.exceptions.MetroSystemError
+src.exceptions.TicketError --|> src.exceptions.MetroSystemError
+src.exceptions.TicketExhaustedError --|> src.exceptions.TicketError
+src.exceptions.TicketExpiredError --|> src.exceptions.TicketError
+src.exceptions.TrainError --|> src.exceptions.MetroSystemError
+src.exceptions.TrainFullError --|> src.exceptions.TrainError
+src.exceptions.TrainNeedsMaintenanceError --|> src.exceptions.TrainError
+src.exceptions.TrainNotEmptyError --|> src.exceptions.TrainError
+src.exceptions.TurnstileAlreadyUnlockedError --|> src.exceptions.TurnstileError
+src.exceptions.TurnstileError --|> src.exceptions.MetroSystemError
+src.exceptions.TurnstileLockedDownError --|> src.exceptions.TurnstileError
+src.exceptions.TurnstileLockedError --|> src.exceptions.TurnstileError
+src.infrastructure.storage.MetroSerializer --|> builtins.object
+src.infrastructure.storage.StorageService --|> builtins.object
+src.presentation.app.MetroCLIApp --|> builtins.object
+src.application.schedule.ActiveDispatch --> builtins.int : current_stop_index
+src.application.schedule.ActiveDispatch --> builtins.int : timer
+src.domain.models.route.RouteStop --> builtins.int : platform_number
+src.domain.models.route.RouteStop --> builtins.int : travel_time_to_next
+src.application.state.AppState --> builtins.str : stations
+src.application.state.AppState --> builtins.str : routes
+src.application.state.AppState --> builtins.str : trains
+src.application.state.AppState --> builtins.str : passengers
+src.application.state.AppState --> builtins.str : save_file
+src.application.state.AppState --> src.domain.models.passenger.Passenger : passengers
+src.application.state.AppState --> src.domain.models.route.Route : routes
+src.application.state.AppState --> src.domain.models.station.Station : stations
+src.domain.models.route.RouteStop --> src.domain.models.station.Station : station
+src.application.state.AppState --> src.domain.models.train.Train : trains
+src.application.schedule.ScheduleService --* src.application.state.AppState : schedule
+src.application.state.AppState --* src.presentation.app.MetroCLIApp : state
+src.infrastructure.storage.StorageService --* src.presentation.app.MetroCLIApp : storage
+src.domain.models.route.Route --o src.application.schedule.ActiveDispatch : route
+src.domain.models.train.Train --o src.application.schedule.ActiveDispatch : train
+@enduml

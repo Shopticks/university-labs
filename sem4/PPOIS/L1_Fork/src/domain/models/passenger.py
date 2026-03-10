@@ -18,7 +18,7 @@ class Passenger:
         """
         self._id = passenger_id
         self._name = name
-        self._ticket = None
+        self._ticket: Optional[Ticket] = None
         self._destination_station_id = destination_station_id
 
     @property

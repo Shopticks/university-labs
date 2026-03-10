@@ -1,0 +1,161 @@
+@startuml packages_Metro
+set namespaceSeparator none
+package "src" as src #77AADD {
+}
+package "src.__main__" as src.__main__ #77AADD {
+}
+package "src.application" as src.application #99DDFF {
+}
+package "src.application.boarding" as src.application.boarding #99DDFF {
+}
+package "src.application.sales" as src.application.sales #99DDFF {
+}
+package "src.application.schedule" as src.application.schedule #99DDFF {
+}
+package "src.application.state" as src.application.state #99DDFF {
+}
+package "src.application.transit" as src.application.transit #99DDFF {
+}
+package "src.domain" as src.domain #44BB99 {
+}
+package "src.domain.models" as src.domain.models #44BB99 {
+}
+package "src.domain.models.money" as src.domain.models.money #44BB99 {
+}
+package "src.domain.models.passenger" as src.domain.models.passenger #44BB99 {
+}
+package "src.domain.models.platform" as src.domain.models.platform #44BB99 {
+}
+package "src.domain.models.route" as src.domain.models.route #44BB99 {
+}
+package "src.domain.models.station" as src.domain.models.station #44BB99 {
+}
+package "src.domain.models.ticket" as src.domain.models.ticket #44BB99 {
+}
+package "src.domain.models.ticket_office" as src.domain.models.ticket_office #44BB99 {
+}
+package "src.domain.models.train" as src.domain.models.train #44BB99 {
+}
+package "src.domain.models.turnstile" as src.domain.models.turnstile #44BB99 {
+}
+package "src.exceptions" as src.exceptions #77AADD {
+}
+package "src.infrastructure" as src.infrastructure #BBCC33 {
+}
+package "src.infrastructure.storage" as src.infrastructure.storage #BBCC33 {
+}
+package "src.presentation" as src.presentation #AAAA00 {
+}
+package "src.presentation.app" as src.presentation.app #AAAA00 {
+}
+package "src.presentation.cli_utils" as src.presentation.cli_utils #AAAA00 {
+}
+package "src.presentation.menus" as src.presentation.menus #AAAA00 {
+}
+src --> src.application.boarding
+src --> src.application.sales
+src --> src.application.schedule
+src --> src.application.state
+src --> src.application.transit
+src --> src.domain.models.money
+src --> src.domain.models.passenger
+src --> src.domain.models.platform
+src --> src.domain.models.route
+src --> src.domain.models.station
+src --> src.domain.models.ticket
+src --> src.domain.models.ticket_office
+src --> src.domain.models.train
+src --> src.domain.models.turnstile
+src --> src.infrastructure.storage
+src --> src.presentation.app
+src.__main__ --> src.presentation.app
+src.application --> src.application.boarding
+src.application --> src.application.sales
+src.application --> src.application.schedule
+src.application --> src.application.state
+src.application --> src.application.transit
+src.application.boarding --> src.domain.models.passenger
+src.application.boarding --> src.domain.models.platform
+src.application.boarding --> src.domain.models.station
+src.application.boarding --> src.domain.models.train
+src.application.sales --> src.domain.models.money
+src.application.sales --> src.domain.models.passenger
+src.application.sales --> src.domain.models.ticket
+src.application.sales --> src.domain.models.ticket_office
+src.application.schedule --> src.application.boarding
+src.application.schedule --> src.domain.models.route
+src.application.schedule --> src.domain.models.train
+src.application.state --> src.application.schedule
+src.application.state --> src.domain.models.passenger
+src.application.state --> src.domain.models.route
+src.application.state --> src.domain.models.station
+src.application.state --> src.domain.models.train
+src.application.transit --> src.domain
+src.application.transit --> src.exceptions
+src.domain --> src.domain.models.money
+src.domain --> src.domain.models.passenger
+src.domain --> src.domain.models.platform
+src.domain --> src.domain.models.route
+src.domain --> src.domain.models.station
+src.domain --> src.domain.models.ticket
+src.domain --> src.domain.models.ticket_office
+src.domain --> src.domain.models.train
+src.domain --> src.domain.models.turnstile
+src.domain.models --> src.domain.models.money
+src.domain.models --> src.domain.models.passenger
+src.domain.models --> src.domain.models.platform
+src.domain.models --> src.domain.models.route
+src.domain.models --> src.domain.models.station
+src.domain.models --> src.domain.models.ticket
+src.domain.models --> src.domain.models.ticket_office
+src.domain.models --> src.domain.models.train
+src.domain.models --> src.domain.models.turnstile
+src.domain.models.passenger --> src.domain.models.ticket
+src.domain.models.platform --> src.domain.models.passenger
+src.domain.models.platform --> src.exceptions
+src.domain.models.route --> src.domain.models.station
+src.domain.models.station --> src.domain.models.passenger
+src.domain.models.station --> src.domain.models.platform
+src.domain.models.station --> src.domain.models.ticket_office
+src.domain.models.station --> src.domain.models.turnstile
+src.domain.models.station --> src.exceptions
+src.domain.models.ticket --> src.exceptions
+src.domain.models.ticket_office --> src.domain.models.money
+src.domain.models.ticket_office --> src.domain.models.ticket
+src.domain.models.ticket_office --> src.exceptions
+src.domain.models.train --> src.domain.models.passenger
+src.domain.models.train --> src.exceptions
+src.domain.models.turnstile --> src.exceptions
+src.infrastructure --> src.infrastructure.storage
+src.infrastructure.storage --> src.application.schedule
+src.infrastructure.storage --> src.application.state
+src.infrastructure.storage --> src.domain.models.money
+src.infrastructure.storage --> src.domain.models.passenger
+src.infrastructure.storage --> src.domain.models.platform
+src.infrastructure.storage --> src.domain.models.route
+src.infrastructure.storage --> src.domain.models.station
+src.infrastructure.storage --> src.domain.models.ticket
+src.infrastructure.storage --> src.domain.models.ticket_office
+src.infrastructure.storage --> src.domain.models.train
+src.infrastructure.storage --> src.domain.models.turnstile
+src.presentation --> src.presentation.app
+src.presentation.app --> src.application.state
+src.presentation.app --> src.infrastructure.storage
+src.presentation.app --> src.presentation.cli_utils
+src.presentation.app --> src.presentation.menus
+src.presentation.menus --> src.application.sales
+src.presentation.menus --> src.application.state
+src.presentation.menus --> src.application.transit
+src.presentation.menus --> src.domain.models.money
+src.presentation.menus --> src.domain.models.passenger
+src.presentation.menus --> src.domain.models.platform
+src.presentation.menus --> src.domain.models.route
+src.presentation.menus --> src.domain.models.station
+src.presentation.menus --> src.domain.models.ticket
+src.presentation.menus --> src.domain.models.ticket_office
+src.presentation.menus --> src.domain.models.train
+src.presentation.menus --> src.domain.models.turnstile
+src.presentation.menus --> src.exceptions
+src.presentation.menus --> src.infrastructure.storage
+src.presentation.menus --> src.presentation.cli_utils
+@enduml

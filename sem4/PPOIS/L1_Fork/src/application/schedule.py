@@ -18,8 +18,8 @@ class ActiveDispatch:
             train (Train): The train being dispatched.
             route (Route): The route the train is following.
         """
-        self.train = train
-        self.route = route
+        self.train: Train = train
+        self.route: Route = route
         self.current_stop_index = 0
         self.timer = 0 
 
