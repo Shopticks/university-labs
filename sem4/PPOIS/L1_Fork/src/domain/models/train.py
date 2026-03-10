@@ -28,7 +28,6 @@ class Train:
             self, 
             train_id: str, 
             capacity: int, 
-            state: Optional[TrainState] = None, 
             stops_for_service: int = 10):
         """
         Initialize a Train instance.
@@ -40,12 +39,15 @@ class Train:
                                                Defaults to 10.
         """
         self._id = train_id
-        # TODO: capacity check?
+        
+        if capacity <= 0:
+            raise ValueError("capacity must be positive")
         self._capacity = capacity
         self._state = TrainState.IN_DEPO
         self._passengers: List[Passenger] =[]
 
-        # TODO: stops_for_service > 0?
+        if stops_for_service <= 0:
+            raise ValueError("stops_for_service must be positive")
         self._stops_for_service = stops_for_service
         self._stops_count = 0
 

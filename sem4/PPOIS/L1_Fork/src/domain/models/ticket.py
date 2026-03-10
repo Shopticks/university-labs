@@ -45,11 +45,11 @@ class Ticket:
         self._id = ticket_id
         self._ticket_type = ticket_type
 
-        # TODO: checking for not negative value of max_trips
+        if max_trips < 0:
+            raise ValueError("max_trips cannot be negative")
         self._max_trips = max_trips
         self._current_trips = 0
 
-        # TODO: Check expires date (Need to be >= than datetime.now())
         self._expires_at  = expires_at if expires_at is not None else datetime.now()
 
     def _validity_check(self):

@@ -53,7 +53,6 @@ class Money:
         return self.amount <= other.amount
 
     def __lt__(self, other: 'Money') -> bool:
-        print("lt")
         return self.amount < other.amount
     
     def __str__(self) -> str:

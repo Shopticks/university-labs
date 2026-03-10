@@ -1,0 +1,238 @@
+@startuml classes
+set namespaceSeparator none
+class "ActiveDispatch" as src.application.schedule.ActiveDispatch {
+  current_stop_index : int
+  is_dwelling : bool
+  route
+  timer : int
+  train
+}
+class "AppState" as src.application.state.AppState {
+  passengers : Dict[str, Passenger]
+  routes : Dict[str, Route]
+  save_file : str
+  schedule
+  stations : Dict[str, Station]
+  trains : Dict[str, Train]
+}
+class "BoardingService" as src.application.boarding.BoardingService {
+  process_regular_stop(train: Train, station: Station, platform: Platform) -> List[Passenger]
+  process_terminal_stop(train: Train, station: Station) -> List[Passenger]
+}
+class "<color:red>InsufficientFundsError</color>" as src.exceptions.InsufficientFundsError {
+}
+class "<color:red>InvalidTicketRequestError</color>" as src.exceptions.InvalidTicketRequestError {
+}
+class "MetroCLIApp" as src.presentation.app.MetroCLIApp {
+  state
+  storage
+  run()
+}
+class "MetroSerializer" as src.infrastructure.storage.MetroSerializer {
+  dispatch_from_dict(data: dict, trains: dict[str, Train], routes: dict[str, Route]) -> ActiveDispatch
+  dispatch_to_dict(dispatch: ActiveDispatch) -> dict
+  passenger_from_dict(data: dict) -> Passenger
+  passenger_to_dict(passenger: Passenger) -> dict
+  platform_from_dict(data: dict, passengers: dict[str, Passenger]) -> Platform
+  platform_to_dict(platform: Platform) -> dict
+  route_from_dict(data: dict, stations: dict[str, Station]) -> Route
+  route_to_dict(route: Route) -> dict
+  state_from_dict(data: dict[str, Any]) -> AppState
+  state_to_dict(state: AppState) -> dict[str, Any]
+  station_from_dict(data: dict, passengers: dict[str, Passenger]) -> Station
+  station_to_dict(station: Station) -> dict
+  ticket_from_dict(data: dict) -> Ticket
+  ticket_office_from_dict(data: dict) -> TicketOffice
+  ticket_office_to_dict(office: TicketOffice) -> dict
+  ticket_to_dict(ticket: Ticket) -> dict
+  train_from_dict(data: dict, passengers: dict[str, Passenger]) -> Train
+  train_to_dict(train: Train) -> dict
+  turnstile_from_dict(data: dict) -> Turnstile
+  turnstile_to_dict(turnstile: Turnstile) -> dict
+}
+class "<color:red>MetroSystemError</color>" as src.exceptions.MetroSystemError {
+}
+class "Money" as src.domain.models.money.Money {
+  amount
+}
+class "Passenger" as src.domain.models.passenger.Passenger {
+  destination_station_id : Optional[str]
+  id : str
+  name : str
+  ticket : Optional[Ticket]
+  buy_ticket(ticket: Ticket) -> None
+  discard_ticket() -> None
+  set_destination(station_id: str) -> None
+}
+class "Platform" as src.domain.models.platform.Platform {
+  id : str
+  number : int
+  waiting_passengers : List[Passenger]
+  add_passenger(passenger: Passenger) -> None
+  add_passengers(passengers: List[Passenger]) -> None
+  remove_passengers(passengers_to_remove: List[Passenger]) -> None
+}
+class "<color:red>PlatformEmptyError</color>" as src.exceptions.PlatformEmptyError {
+}
+class "<color:red>PlatformError</color>" as src.exceptions.PlatformError {
+}
+class "<color:red>PlatformOccupiedError</color>" as src.exceptions.PlatformOccupiedError {
+}
+class "<color:red>PlatformOperationError</color>" as src.exceptions.PlatformOperationError {
+}
+class "Route" as src.domain.models.route.Route {
+  id : str
+  name : str
+  stops : List[RouteStop]
+  add_stop(stop: RouteStop) -> None
+}
+class "RouteStop" as src.domain.models.route.RouteStop {
+  platform_number : int
+  station
+  travel_time_to_next : int
+}
+class "<color:red>SalesError</color>" as src.exceptions.SalesError {
+}
+class "SalesService" as src.application.sales.SalesService {
+  process_ticket_purchase(passenger: Passenger, office: TicketOffice, ticket_type: TicketType, trips: int, tendered_money: Money) -> Tuple[Ticket, Money]
+}
+class "ScheduleService" as src.application.schedule.ScheduleService {
+  active_dispatches : List[ActiveDispatch]
+  current_time_minutes : int
+  current_time_str : str
+  dispatch_train(train: Train, route: Route) -> None
+  tick() -> None
+}
+class "Station" as src.domain.models.station.Station {
+  concourse_passengers : List[Passenger]
+  id : str
+  name : str
+  platforms : List[Platform]
+  ticket_offices : List[TicketOffice]
+  turnstiles : List[Turnstile]
+  add_platform(platform: Platform) -> None
+  add_ticket_office(office: TicketOffice) -> None
+  add_turnstile(turnstile: Turnstile) -> None
+  enter_concourse(passenger: Passenger) -> None
+  exit_station(passenger: Passenger) -> None
+  get_platform(number: int) -> Platform
+  get_ticket_office(office_id: str) -> TicketOffice
+  lift_lockdown() -> None
+  lockdown() -> None
+  return_to_concourse(passenger: Passenger, platform_number: int) -> None
+  route_to_platform(passenger: Passenger, platform_number: int) -> None
+}
+class "<color:red>StationError</color>" as src.exceptions.StationError {
+}
+class "StorageService" as src.infrastructure.storage.StorageService {
+  filepath : str
+  load(state: AppState) -> bool
+  save(state: AppState) -> bool
+}
+class "Ticket" as src.domain.models.ticket.Ticket {
+  current_trips : int
+  expiration_date : datetime
+  expires_at : datetime
+  id : str
+  is_valid : bool
+  max_trips : int
+  remaining_trips : Union[int, float]
+  ticket_type : TicketType
+  use() -> None
+}
+class "<color:red>TicketError</color>" as src.exceptions.TicketError {
+}
+class "<color:red>TicketExhaustedError</color>" as src.exceptions.TicketExhaustedError {
+}
+class "<color:red>TicketExpiredError</color>" as src.exceptions.TicketExpiredError {
+}
+class "TicketOffice" as src.domain.models.ticket_office.TicketOffice {
+  balance : Money
+  id : str
+  get_price(ticket_type: TicketType, trips: int) -> Money
+  sell_ticket(ticket_type: TicketType, trips: int, tendered_money: Money) -> Tuple[Ticket, Money]
+}
+class "TicketType" as src.domain.models.ticket.TicketType {
+  name
+}
+class "Train" as src.domain.models.train.Train {
+  capacity : int
+  free_seats : int
+  id : str
+  needs_maintenance : bool
+  passenger_count : int
+  passengers : List[Passenger]
+  state : TrainState
+  stops_count : int
+  stops_for_service : int
+  alight(passengers_to_remove: List[Passenger]) -> None
+  board(passenger: Passenger) -> None
+  maintain() -> None
+  record_stop() -> None
+  set_state(new_state: TrainState) -> None
+  unload_all() -> List[Passenger]
+}
+class "<color:red>TrainError</color>" as src.exceptions.TrainError {
+}
+class "<color:red>TrainFullError</color>" as src.exceptions.TrainFullError {
+}
+class "<color:red>TrainNeedsMaintenanceError</color>" as src.exceptions.TrainNeedsMaintenanceError {
+}
+class "<color:red>TrainNotEmptyError</color>" as src.exceptions.TrainNotEmptyError {
+}
+class "TrainState" as src.domain.models.train.TrainState {
+  name
+}
+class "TransitService" as src.application.transit.TransitService {
+  process_turnstile_passage(ticket: Ticket, turnstile: Turnstile) -> None
+}
+class "Turnstile" as src.domain.models.turnstile.Turnstile {
+  id : str
+  state : TurnstileState
+  lock() -> None
+  lockdown() -> None
+  pass_through() -> None
+  remove_lockdown() -> None
+  unlock() -> None
+}
+class "<color:red>TurnstileAlreadyUnlockedError</color>" as src.exceptions.TurnstileAlreadyUnlockedError {
+}
+class "<color:red>TurnstileError</color>" as src.exceptions.TurnstileError {
+}
+class "<color:red>TurnstileLockedDownError</color>" as src.exceptions.TurnstileLockedDownError {
+}
+class "<color:red>TurnstileLockedError</color>" as src.exceptions.TurnstileLockedError {
+}
+class "TurnstileState" as src.domain.models.turnstile.TurnstileState {
+  name
+}
+src.exceptions.InsufficientFundsError --|> src.exceptions.SalesError
+src.exceptions.InvalidTicketRequestError --|> src.exceptions.SalesError
+src.exceptions.PlatformEmptyError --|> src.exceptions.PlatformError
+src.exceptions.PlatformError --|> src.exceptions.MetroSystemError
+src.exceptions.PlatformOccupiedError --|> src.exceptions.PlatformError
+src.exceptions.PlatformOperationError --|> src.exceptions.MetroSystemError
+src.exceptions.SalesError --|> src.exceptions.MetroSystemError
+src.exceptions.StationError --|> src.exceptions.MetroSystemError
+src.exceptions.TicketError --|> src.exceptions.MetroSystemError
+src.exceptions.TicketExhaustedError --|> src.exceptions.TicketError
+src.exceptions.TicketExpiredError --|> src.exceptions.TicketError
+src.exceptions.TrainError --|> src.exceptions.MetroSystemError
+src.exceptions.TrainFullError --|> src.exceptions.TrainError
+src.exceptions.TrainNeedsMaintenanceError --|> src.exceptions.TrainError
+src.exceptions.TrainNotEmptyError --|> src.exceptions.TrainError
+src.exceptions.TurnstileAlreadyUnlockedError --|> src.exceptions.TurnstileError
+src.exceptions.TurnstileError --|> src.exceptions.MetroSystemError
+src.exceptions.TurnstileLockedDownError --|> src.exceptions.TurnstileError
+src.exceptions.TurnstileLockedError --|> src.exceptions.TurnstileError
+src.application.state.AppState --> src.domain.models.passenger.Passenger : passengers
+src.application.state.AppState --> src.domain.models.route.Route : routes
+src.application.state.AppState --> src.domain.models.station.Station : stations
+src.domain.models.route.RouteStop --> src.domain.models.station.Station : station
+src.application.state.AppState --> src.domain.models.train.Train : trains
+src.application.schedule.ScheduleService --* src.application.state.AppState : schedule
+src.application.state.AppState --* src.presentation.app.MetroCLIApp : state
+src.infrastructure.storage.StorageService --* src.presentation.app.MetroCLIApp : storage
+src.domain.models.route.Route --o src.application.schedule.ActiveDispatch : route
+src.domain.models.train.Train --o src.application.schedule.ActiveDispatch : train
+@enduml

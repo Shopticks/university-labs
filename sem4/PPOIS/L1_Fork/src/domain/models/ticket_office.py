@@ -96,8 +96,6 @@ class TicketOffice:
         change = tendered_money - price
         self._balance += price
 
-        # TODO: Generator for the uuid
-
         new_ticket_id = f"TKT-{uuid.uuid4().hex[:6].upper()}"
         
         expires_at = None
