@@ -80,5 +80,5 @@ class BoardingService:
             
         if boarded_passengers:
             platform.remove_passengers(boarded_passengers)
-            
+              
         return passengers_to_alight
