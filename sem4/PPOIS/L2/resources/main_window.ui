@@ -1,0 +1,1422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1225</width>
+    <height>769</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1100</width>
+    <height>680</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>16777215</width>
+    <height>16777215</height>
+   </size>
+  </property>
+  <property name="font">
+   <font>
+    <family>Inter</family>
+    <pointsize>-1</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>Ветеринарный журнал</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/* ── Глобальный шрифт и цвет текста ──────────────────────── */
+* {
+    font-family: &quot;Inter&quot;;
+	/* sans-serif*/
+    font-size: 13px;
+    color: #40513B;
+}
+
+/* ── Фон окна и всех QWidget ──────────────────────────────── */
+QMainWindow, QWidget {
+    background-color: #EDF1D6;
+}
+
+/* ── MenuBar ──────────────────────────────────────────────── */
+QMenuBar {
+    background-color: #40513B;
+    color: #fcfcfc;
+    padding: 2px 4px;
+    spacing: 4px;
+}
+QMenuBar::item {
+    background: transparent;
+    padding: 4px 12px;
+    border-radius: 4px;
+    color: #fcfcfc;
+}
+QMenuBar::item:selected {
+    background-color: #609966;
+}
+
+/* ── Выпадающие меню ──────────────────────────────────────── */
+QMenu {
+    background-color: #EDF1D6;
+    border: 1px solid #9DC08B;
+    border-radius: 6px;
+    padding: 4px 0;
+}
+QMenu::item {
+    padding: 6px 24px 6px 12px;
+    border-radius: 4px;
+    margin: 1px 4px;
+    color: #40513B;
+}
+QMenu::item:selected {
+    background-color: #9DC08B;
+    color: #40513B;
+}
+QMenu::separator {
+    height: 1px;
+    background: #9DC08B;
+    margin: 4px 8px;
+}
+
+/* ── ToolBar ──────────────────────────────────────────────── */
+QToolBar {
+    background-color: #40513B;
+    border: none;
+    padding: 4px 6px;
+    spacing: 4px;
+}
+QToolBar::separator {
+    width: 1px;
+    background: #609966;
+    margin: 4px 4px;
+}
+QToolButton {
+    background-color: transparent;
+    color: #fcfcfc;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    min-width: 32px;
+    min-height: 32px;
+}
+QToolButton:hover   { background-color: #609966; }
+QToolButton:pressed { background-color: #40513B; border: 1px solid #9DC08B; }
+QToolButton:checked { background-color: #609966; border: 1px solid #9DC08B; }
+
+/* ── Sidebar ──────────────────────────────────────────────── */
+QFrame#sidebar {
+    background-color: #40513B;
+    border-right: 2px solid #609966;
+}
+
+/* Логотип в сайдбаре */
+QLabel#logoLabel {
+    color: #fcfcee;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #40513B;
+}
+
+/* Разделители в сайдбаре */
+QFrame#sidebarDivider,
+QFrame#sidebarDivider2,
+QFrame#sidebarDivider3 {
+    background-color: #548046;
+    border: none;
+}
+
+/* ВСЕ кнопки внутри sidebar — без повторений на каждой кнопке */
+QFrame#sidebar QPushButton {
+    background-color: transparent;
+    color: #fcfcee;
+    border: none;
+    border-radius: 6px;
+    text-align: left;
+    padding: 9px 14px;
+    font-size: 13px;
+    margin: 4px 2px 8px;
+}
+QFrame#sidebar QPushButton:hover   { background-color: #6DA65B; }
+QFrame#sidebar QPushButton:pressed { background-color: #EDF1D6; color: #40513B; }
+QFrame#sidebar QPushButton:checked { background-color: qlineargradient(
+        x1: 0, y1: 0, x2: 1, y2: 0,
+        stop: 0 #F8FCE0,      /* Начало &quot;границы&quot; */
+        stop: 0.05 #F8FCE0,   /* Конец &quot;границы&quot; (3% ширины) */
+        stop: 0.05 #6DA65B,   /* Резкий переход в основной цвет */
+        stop: 1 #6DA65B       /* Основной цвет до конца кнопки */
+    ); 
+	font-weight: bold;
+}
+
+/* Метка имени файла */
+QLabel#configNameLabel {
+    color: #9DC08B;
+    font-size: 11px;
+    padding: 4px 6px 0 6px;
+    background-color: #40513B;
+}
+
+/* ── QTableView ───────────────────────────────────────────── */
+QTableView#recordTable {
+    background-color: #F8FCE0;
+    alternate-background-color: #F8FCE0;
+    gridline-color: #C8D8B0;
+    border: none;
+    selection-background-color: #F8FCE0;
+    selection-color: #40513B;
+}
+QTableView#recordTable::item {
+    padding: 6px 10px;
+    border-bottom: 1px solid #E0EAC8;
+}
+QTableView#recordTable::item:selected {
+    background-color: #9DC08B;
+    color: #40513B;
+}
+
+/* Заголовки таблицы и дерева */
+QHeaderView::section {
+    background-color: #40513B;
+    color: #EDF1D6;
+    padding: 8px 10px;
+    font-weight: bold;
+    border: none;
+    border-right: 1px solid #609966;
+}
+QHeaderView::section:hover { background-color: #609966; }
+
+/* ── QTreeWidget ──────────────────────────────────────────── */
+QTreeWidget#recordTree {
+    background-color: #F8FCE0;
+    alternate-background-color: #F8FCE0;
+    border: none;
+    selection-background-color: #9DC08B;
+    selection-color: #40513B;
+}
+QTreeWidget#recordTree::item {
+    padding: 4px 6px;
+    border-bottom: 1px solid #E0EAC8;
+}
+QTreeWidget#recordTree::item:selected { background-color: #9DC08B; color: #40513B; }
+QTreeWidget#recordTree::branch { background: transparent; color: #40513B; }
+QTreeWidget#recordTree::branch:has-children:!has-siblings:closed,
+QTreeWidget#recordTree::branch:closed:has-children:has-siblings {
+    image: url(:/resources/images/arrow_right.svg);
+}
+QTreeWidget#recordTree::branch:open:has-children:!has-siblings,
+QTreeWidget#recordTree::branch:open:has-children:has-siblings {
+    image: url(:/resources/images/arrow_down.svg);
+}
+
+/* ── Pagination Bar ───────────────────────────────────────── */
+QFrame#paginationBar {
+    background-color: #AAC78F;
+    border-top: 1px solid #609966;
+}
+
+/* Кнопки внутри paginationBar */
+QFrame#paginationBar QPushButton {
+    background-color: #6DA65B;
+    color: #fcfcee;
+    border: none;
+    border-radius: 4px;
+    min-width: 28px; max-width: 28px;
+    min-height: 26px; max-height: 26px;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 0;
+}
+QFrame#paginationBar QPushButton:hover     { background-color: #40513B; }
+QFrame#paginationBar QPushButton:disabled  { background-color: #C8D8B0; color: #9DC08B; }
+
+/* Метки внутри paginationBar */
+QFrame#paginationBar QLabel {
+    color: #40513B;
+    font-size: 12px;
+    padding: 0 4px;
+    background-color: transparent;
+}
+QLabel#totalRecordsLabel { color: #5A6B52; }
+
+/* Тонкие вертикальные разделители-группы внутри paginationBar */
+QFrame#paginationSeparator1, QFrame#paginationSeparator2 {
+    color: #7FA374;
+    background-color: #7FA374;
+}
+
+/* SpinBox внутри paginationBar */
+
+QFrame#paginationBar QSpinBox {
+    background-color: #F8FCE0;
+    border: 1px solid #609966;
+    border-radius: 4px;
+    padding: 2px 4px;
+    color: #40513B;
+    min-height: 24px; max-height: 24px;
+    font-size: 12px;
+}
+QFrame#paginationBar QSpinBox::up-button,
+QFrame#paginationBar QSpinBox::down-button {
+    width: 16px;
+    background: #609966;
+}
+
+/* ── Поля ввода ───────────────────────────────────────────── */
+QLineEdit, QTextEdit, QPlainTextEdit {
+    background-color: #ffffff;
+    border: 1px solid #9DC08B;
+    border-radius: 5px;
+    padding: 6px 8px;
+    color: #40513B;
+    selection-background-color: #9DC08B;
+}
+QLineEdit:focus, QTextEdit:focus { border: 1.5px solid #609966; background-color: #F8FAF0; }
+QLineEdit:disabled               { background-color: #F0F3E4; color: #9DC08B; }
+
+/* ── DateEdit ─────────────────────────────────────────────── */
+QDateEdit, QDateTimeEdit {
+    background-color: #ffffff;
+    border: 1px solid #9DC08B;
+    border-radius: 5px;
+    padding: 5px 8px;
+    color: #40513B;
+    min-height: 28px;
+}
+QDateEdit:focus, QDateTimeEdit:focus { border: 1.5px solid #609966; }
+QDateEdit::drop-down, QDateTimeEdit::drop-down { border: none; width: 20px; }
+
+QCalendarWidget { background-color: #EDF1D6; border: 1px solid #9DC08B; border-radius: 6px; }
+QCalendarWidget QToolButton { background-color: #40513B; color: #EDF1D6; border-radius: 4px; padding: 4px; }
+QCalendarWidget QAbstractItemView { background-color: #ffffff; selection-background-color: #9DC08B; selection-color: #40513B; }
+
+/* ── SpinBox ──────────────────────────────────────────────── */
+QSpinBox, QDoubleSpinBox {
+    background-color: #ffffff;
+    border: 1px solid #9DC08B;
+    border-radius: 5px;
+    padding: 5px 8px;
+    color: #40513B;
+    min-height: 28px;
+}
+QSpinBox:focus, QDoubleSpinBox:focus { border: 1.5px solid #609966; }
+
+QFrame#paginationBar QSpinBox::up-arrow {
+    image: url(:/resources/images/up_arrow.svg);
+    width: 8px;
+    height: 5px;
+}
+
+QFrame#paginationBar QSpinBox::down-arrow {
+    image: url(:/resources/images/down_arrow.svg);
+    width: 8px;
+    height: 5px;
+}
+
+/* ── ComboBox ─────────────────────────────────────────────── */
+QComboBox {
+    background-color: #ffffff;
+    border: 1px solid #9DC08B;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: #40513B;
+    min-height: 28px;
+}
+QComboBox:focus            { border: 1.5px solid #609966; }
+QComboBox::drop-down       { border: none; width: 22px; }
+QComboBox QAbstractItemView {
+    background-color: #EDF1D6;
+    border: 1px solid #9DC08B;
+    selection-background-color: #9DC08B;
+    selection-color: #40513B;
+}
+
+/* ── CheckBox ─────────────────────────────────────────────── */
+QCheckBox { color: #40513B; spacing: 8px; }
+QCheckBox::indicator {
+    width: 16px; height: 16px;
+    border: 1.5px solid #609966;
+    border-radius: 3px;
+    background-color: #ffffff;
+}
+QCheckBox::indicator:checked { background-color: #609966; border-color: #609966; }
+QCheckBox::indicator:hover   { border-color: #40513B; }
+
+/* ── Скроллбары ───────────────────────────────────────────── */
+QScrollBar:vertical   { background: #EDF1D6; width: 8px;  border-radius: 4px; margin: 0; }
+QScrollBar:horizontal { background: #EDF1D6; height: 8px; border-radius: 4px; margin: 0; }
+QScrollBar::handle:vertical   { background: #9DC08B; border-radius: 4px; min-height: 30px; }
+QScrollBar::handle:horizontal { background: #9DC08B; border-radius: 4px; min-width: 30px; }
+QScrollBar::handle:vertical:hover,
+QScrollBar::handle:horizontal:hover { background: #609966; }
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical,
+QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal { height: 0; width: 0; background: none; }
+
+/* ── StatusBar ────────────────────────────────────────────── */
+QStatusBar {
+    background-color: #40513B;
+    color: #9DC08B;
+    font-size: 11px;
+    padding: 2px 8px;
+}
+QStatusBar::item { border: none; }
+
+/* ── ToolTip ──────────────────────────────────────────────── */
+QToolTip {
+    background-color: #40513B;
+    color: #EDF1D6;
+    border: 1px solid #609966;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 12px;
+}
+
+/* ── GroupBox (для диалогов) ──────────────────────────────── */
+QGroupBox {
+    border: 1.5px solid #9DC08B;
+    border-radius: 6px;
+    margin-top: 14px;
+    padding: 8px 6px 6px 6px;
+    color: #609966;
+}
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    padding: 0 6px;
+    color: #609966;
+    font-weight: bold;
+}
+   
+/* --- TableView --- */
+QTableWidget {
+	background-color: #EDF1D6;
+}
+
+QMessageBox {
+    background-color: #EDF1D6;
+    border: 1px solid #9DC08B;
+    border-radius: 8px;
+}
+
+QMessageBox QLabel {
+    color: #40513B;
+    font-size: 13px;
+    background-color: transparent;
+}
+
+QMessageBox QPushButton {
+    background-color: #609966;
+    color: #fcfcee;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 20px;
+    font-size: 13px;
+    min-width: 72px;
+    min-height: 28px;
+}
+
+QMessageBox QPushButton:hover {
+    background-color: #40513B;
+}
+
+QMessageBox QPushButton:pressed {
+    background-color: #2e3d2a;
+    border: 1px solid #9DC08B;
+}
+
+QMessageBox QPushButton:default {
+    border: 2px solid #40513B;
+}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="mainHLayout">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QFrame" name="sidebar">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>200</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>200</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Shadow::Plain</enum>
+      </property>
+      <property name="lineWidth">
+       <number>1</number>
+      </property>
+      <layout class="QVBoxLayout" name="sidebarLayout">
+       <property name="spacing">
+        <number>4</number>
+       </property>
+       <property name="leftMargin">
+        <number>8</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>8</number>
+       </property>
+       <property name="bottomMargin">
+        <number>8</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="logoLabel">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>70</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>70</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string>ВетЖурнал</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="sidebarDivider">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>1</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>1</height>
+          </size>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Shape::HLine</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Plain</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnAdd">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="toolTip">
+          <string>Добавить новую запись (Ctrl+N)</string>
+         </property>
+         <property name="text">
+          <string>＋  Добавить</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnSearch">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="toolTip">
+          <string>Поиск записей (Ctrl+F)</string>
+         </property>
+         <property name="text">
+          <string>Поиск</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnDeleteSidebar">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="toolTip">
+          <string>Удалить записи по условию (Del)</string>
+         </property>
+         <property name="text">
+          <string>Удалить</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnToggleTree">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="toolTip">
+          <string>Переключить вид отображения</string>
+         </property>
+         <property name="text">
+          <string>Вид: таблица</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="sidebarVSpacer">
+         <property name="orientation">
+          <enum>Qt::Orientation::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Policy::Expanding</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QFrame" name="sidebarDivider2">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>1</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>1</height>
+          </size>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Shape::HLine</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Plain</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnSave">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="toolTip">
+          <string>Сохранить записи в XML файл</string>
+         </property>
+         <property name="text">
+          <string>Сохранить</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnLoad">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="toolTip">
+          <string>Загрузить записи из XML файла</string>
+         </property>
+         <property name="text">
+          <string>Загрузить</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QFrame" name="contentArea">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+        <horstretch>1</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::NoFrame</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Shadow::Plain</enum>
+      </property>
+      <layout class="QVBoxLayout" name="contentLayout">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QStackedWidget" name="contentStack">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
+         <widget class="QWidget" name="pageTable">
+          <layout class="QVBoxLayout" name="pageTableLayout">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QTableView" name="recordTable">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="autoFillBackground">
+              <bool>true</bool>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:#F8FCE0;</string>
+             </property>
+             <property name="editTriggers">
+              <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
+             </property>
+             <property name="alternatingRowColors">
+              <bool>true</bool>
+             </property>
+             <property name="selectionMode">
+              <enum>QAbstractItemView::SelectionMode::SingleSelection</enum>
+             </property>
+             <property name="selectionBehavior">
+              <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
+             </property>
+             <property name="showGrid">
+              <bool>true</bool>
+             </property>
+             <property name="gridStyle">
+              <enum>Qt::PenStyle::SolidLine</enum>
+             </property>
+             <property name="sortingEnabled">
+              <bool>true</bool>
+             </property>
+             <attribute name="horizontalHeaderMinimumSectionSize">
+              <number>60</number>
+             </attribute>
+             <attribute name="horizontalHeaderDefaultSectionSize">
+              <number>140</number>
+             </attribute>
+             <attribute name="horizontalHeaderStretchLastSection">
+              <bool>true</bool>
+             </attribute>
+             <attribute name="verticalHeaderVisible">
+              <bool>false</bool>
+             </attribute>
+             <attribute name="verticalHeaderDefaultSectionSize">
+              <number>32</number>
+             </attribute>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="pageTree">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <layout class="QVBoxLayout" name="pageTreeLayout">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QTreeWidget" name="recordTree">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="alternatingRowColors">
+              <bool>true</bool>
+             </property>
+             <property name="indentation">
+              <number>20</number>
+             </property>
+             <property name="uniformRowHeights">
+              <bool>true</bool>
+             </property>
+             <property name="sortingEnabled">
+              <bool>true</bool>
+             </property>
+             <attribute name="headerStretchLastSection">
+              <bool>true</bool>
+             </attribute>
+             <column>
+              <property name="text">
+               <string>Запись / Поле</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Значение</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="paginationBar">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>42</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>42</height>
+          </size>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Plain</enum>
+         </property>
+         <layout class="QHBoxLayout" name="paginationLayout">
+          <property name="spacing">
+           <number>8</number>
+          </property>
+          <property name="leftMargin">
+           <number>14</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>14</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="totalRecordsLabel">
+            <property name="text">
+             <string>Всего записей: 0</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="paginationSpacerLeft">
+            <property name="orientation">
+             <enum>Qt::Orientation::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Policy::Expanding</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QFrame" name="paginationSeparator1">
+            <property name="minimumSize">
+             <size>
+              <width>1</width>
+              <height>22</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>1</width>
+              <height>22</height>
+             </size>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::Shape::VLine</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Shadow::Plain</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnFirstPage">
+            <property name="minimumSize">
+             <size>
+              <width>28</width>
+              <height>26</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>28</width>
+              <height>26</height>
+             </size>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="toolTip">
+             <string>Первая страница</string>
+            </property>
+            <property name="text">
+             <string>⏮</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnPrevPage">
+            <property name="minimumSize">
+             <size>
+              <width>28</width>
+              <height>26</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>28</width>
+              <height>26</height>
+             </size>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="toolTip">
+             <string>Предыдущая страница</string>
+            </property>
+            <property name="text">
+             <string>◀</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="pageLabel">
+            <property name="text">
+             <string>Стр.</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="currentPageSpinBox">
+            <property name="minimumSize">
+             <size>
+              <width>55</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>55</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="toolTip">
+             <string>Перейти к странице</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignmentFlag::AlignHCenter</set>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::ButtonSymbols::NoButtons</enum>
+            </property>
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>9999</number>
+            </property>
+            <property name="value">
+             <number>1</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="totalPagesLabel">
+            <property name="text">
+             <string>/ 1</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnNextPage">
+            <property name="minimumSize">
+             <size>
+              <width>28</width>
+              <height>26</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>28</width>
+              <height>26</height>
+             </size>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="toolTip">
+             <string>Следующая страница</string>
+            </property>
+            <property name="text">
+             <string>▶</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnLastPage">
+            <property name="minimumSize">
+             <size>
+              <width>28</width>
+              <height>26</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>28</width>
+              <height>26</height>
+             </size>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="toolTip">
+             <string>Последняя страница</string>
+            </property>
+            <property name="text">
+             <string>⏭</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QFrame" name="paginationSeparator2">
+            <property name="minimumSize">
+             <size>
+              <width>1</width>
+              <height>22</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>1</width>
+              <height>22</height>
+             </size>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::Shape::VLine</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Shadow::Plain</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="paginationSpacerRight">
+            <property name="orientation">
+             <enum>Qt::Orientation::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Policy::Expanding</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="perPageLabel">
+            <property name="text">
+             <string>На странице:</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="perPageSpinBox">
+            <property name="minimumSize">
+             <size>
+              <width>58</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>58</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="cursor">
+             <cursorShape>ArrowCursor</cursorShape>
+            </property>
+            <property name="toolTip">
+             <string>Число записей на странице</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignmentFlag::AlignHCenter</set>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
+            </property>
+            <property name="minimum">
+             <number>5</number>
+            </property>
+            <property name="maximum">
+             <number>100</number>
+            </property>
+            <property name="singleStep">
+             <number>5</number>
+            </property>
+            <property name="value">
+             <number>10</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1225</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>Файл</string>
+    </property>
+    <addaction name="actionSaveToFile"/>
+    <addaction name="actionLoadFromFile"/>
+    <addaction name="separator"/>
+    <addaction name="actionSaveToDb"/>
+    <addaction name="actionLoadFromDb"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuRecords">
+    <property name="title">
+     <string>Записи</string>
+    </property>
+    <addaction name="actionAdd"/>
+    <addaction name="actionSearch"/>
+    <addaction name="actionDelete"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>Вид</string>
+    </property>
+    <addaction name="actionToggleTree"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Справка</string>
+    </property>
+    <addaction name="actionSettings"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuRecords"/>
+   <addaction name="menuView"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <action name="actionSaveToFile">
+   <property name="text">
+    <string>Сохранить в файл</string>
+   </property>
+   <property name="toolTip">
+    <string>Сохранить записи в XML файл</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionLoadFromFile">
+   <property name="text">
+    <string>Загрузить из файла</string>
+   </property>
+   <property name="toolTip">
+    <string>Загрузить записи из XML файла</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionSaveToDb">
+   <property name="text">
+    <string>Сохранить в БД</string>
+   </property>
+   <property name="toolTip">
+    <string>Сохранить записи в базу данных PostgreSQL</string>
+   </property>
+  </action>
+  <action name="actionLoadFromDb">
+   <property name="text">
+    <string>Загрузить из БД</string>
+   </property>
+   <property name="toolTip">
+    <string>Загрузить записи из базы данных PostgreSQL</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Выход</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionAdd">
+   <property name="text">
+    <string>Добавить</string>
+   </property>
+   <property name="toolTip">
+    <string>Добавить новую запись (Ctrl+N)</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="actionSearch">
+   <property name="text">
+    <string>Поиск</string>
+   </property>
+   <property name="toolTip">
+    <string>Поиск записей (Ctrl+F)</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
+   </property>
+  </action>
+  <action name="actionDelete">
+   <property name="text">
+    <string>Удалить</string>
+   </property>
+   <property name="toolTip">
+    <string>Удалить записи по условию</string>
+   </property>
+   <property name="shortcut">
+    <string>Del</string>
+   </property>
+  </action>
+  <action name="actionToggleTree">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Дерево</string>
+   </property>
+   <property name="toolTip">
+    <string>Переключить вид: таблица / дерево</string>
+   </property>
+  </action>
+  <action name="actionSettings">
+   <property name="text">
+    <string>Настройки</string>
+   </property>
+   <property name="toolTip">
+    <string>Открыть настройки приложения</string>
+   </property>
+  </action>
+ </widget>
+ <tabstops>
+  <tabstop>btnAdd</tabstop>
+  <tabstop>btnSearch</tabstop>
+  <tabstop>btnDeleteSidebar</tabstop>
+  <tabstop>btnToggleTree</tabstop>
+  <tabstop>btnSave</tabstop>
+  <tabstop>btnLoad</tabstop>
+  <tabstop>recordTable</tabstop>
+  <tabstop>recordTree</tabstop>
+  <tabstop>btnFirstPage</tabstop>
+  <tabstop>btnPrevPage</tabstop>
+  <tabstop>currentPageSpinBox</tabstop>
+  <tabstop>perPageSpinBox</tabstop>
+  <tabstop>btnNextPage</tabstop>
+  <tabstop>btnLastPage</tabstop>
+ </tabstops>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>

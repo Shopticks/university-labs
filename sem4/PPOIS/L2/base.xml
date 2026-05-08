@@ -1,0 +1,143 @@
+<?xml version="1.0" ?>
+<pet_records>
+  <pet_record>
+    <pet_name>Марта</pet_name>
+    <birth_date>2020-02-11</birth_date>
+    <last_visit_date>2026-05-07</last_visit_date>
+    <vet_name>Новикова Татьяна Борисовна</vet_name>
+    <diagnosis>Дерматофития</diagnosis>
+  </pet_record>
+  <pet_record>
+    <pet_name>Нюша</pet_name>
+    <birth_date>2023-11-20</birth_date>
+    <last_visit_date>2026-05-06</last_visit_date>
+    <vet_name>Попова Ирина Геннадьевна</vet_name>
+    <diagnosis>Энтерит (амбулаторная терапия)</diagnosis>
+  </pet_record>
+  <pet_record>
+    <pet_name>Зефир</pet_name>
+    <birth_date>2020-09-18</birth_date>
+    <last_visit_date>2026-05-05</last_visit_date>
+    <vet_name>Волков Дмитрий Андреевич</vet_name>
+    <diagnosis>Послеоперационный осмотр</diagnosis>
+  </pet_record>
+  <pet_record>
+    <pet_name>Гром</pet_name>
+    <birth_date>2019-01-25</birth_date>
+    <last_visit_date>2026-05-04</last_visit_date>
+    <vet_name>Зайцев Игорь Константинович</vet_name>
+    <diagnosis>Пододерматит</diagnosis>
+  </pet_record>
+  <pet_record>
+    <pet_name>Рекс</pet_name>
+    <birth_date>2023-04-20</birth_date>
+    <last_visit_date>2026-05-02</last_visit_date>
+    <vet_name>Морозов Сергей Викторович</vet_name>
+    <diagnosis>Гастроэнтерит</diagnosis>
+  </pet_record>
+  <pet_record>
+    <pet_name>Джесси</pet_name>
+    <birth_date>2021-09-25</birth_date>
+    <last_visit_date>2026-05-01</last_visit_date>
+    <vet_name>Козлов Владислав Романович</vet_name>
+    <diagnosis>Растяжение связок</diagnosis>
+  </pet_record>
+  <pet_record>
+    <pet_name>Мухтар</pet_name>
+    <birth_date>2018-07-22</birth_date>
+    <last_visit_date>2026-05-01</last_visit_date>
+    <vet_name>Козлова Елена Дмитриевна</vet_name>
+    <diagnosis>Комплексная вакцинация</diagnosis>
+  </pet_record>
+  <pet_record>
+    <pet_name>Персик</pet_name>
+    <birth_date>2019-04-03</birth_date>
+    <last_visit_date>2026-04-30</last_visit_date>
+    <vet_name>Егорова Светлана Ивановна</vet_name>
+    <diagnosis>Мочекаменная болезнь</diagnosis>
+  </pet_record>
+  <pet_record>
+    <pet_name>Чарли</pet_name>
+    <birth_date>2022-01-05</birth_date>
+    <last_visit_date>2026-04-28</last_visit_date>
+    <vet_name>Петрова Ольга Игоревна</vet_name>
+    <diagnosis>Глистная инвазия</diagnosis>
+  </pet_record>
+  <pet_record>
+    <pet_name>Барон</pet_name>
+    <birth_date>2017-05-08</birth_date>
+    <last_visit_date>2026-04-25</last_visit_date>
+    <vet_name>Белов Николай Степанович</vet_name>
+    <diagnosis>Дисплазия тазобедренных суставов</diagnosis>
+  </pet_record>
+  <pet_record>
+    <pet_name>Феликс</pet_name>
+    <birth_date>2018-10-05</birth_date>
+    <last_visit_date>2026-04-22</last_visit_date>
+    <vet_name>Орлов Роман Михайлович</vet_name>
+    <diagnosis>Хроническая болезнь почек</diagnosis>
+  </pet_record>
+  <pet_record>
+    <pet_name>Барсик</pet_name>
+    <birth_date>2019-03-15</birth_date>
+    <last_visit_date>2026-04-20</last_visit_date>
+    <vet_name>Смирнов Алексей Владимирович</vet_name>
+    <diagnosis>Отит наружный</diagnosis>
+  </pet_record>
+  <pet_record>
+    <pet_name>Клео</pet_name>
+    <birth_date>2021-03-12</birth_date>
+    <last_visit_date>2026-04-18</last_visit_date>
+    <vet_name>Макарова Анна Валерьевна</vet_name>
+    <diagnosis>Лихорадка неясной этиологии</diagnosis>
+  </pet_record>
+  <pet_record>
+    <pet_name>Бублик</pet_name>
+    <birth_date>2021-06-30</birth_date>
+    <last_visit_date>2026-04-15</last_visit_date>
+    <vet_name>Кузнецов Андрей Павлович</vet_name>
+    <diagnosis>Конъюнктивит</diagnosis>
+  </pet_record>
+  <pet_record>
+    <pet_name>Симба</pet_name>
+    <birth_date>2022-12-10</birth_date>
+    <last_visit_date>2026-04-12</last_visit_date>
+    <vet_name>Соколова Екатерина Дмитриевна</vet_name>
+    <diagnosis>Отит средний</diagnosis>
+  </pet_record>
+  <pet_record>
+    <pet_name>Тигра</pet_name>
+    <birth_date>2017-12-03</birth_date>
+    <last_visit_date>2026-04-10</last_visit_date>
+    <vet_name>Сидорова Мария Александровна</vet_name>
+    <diagnosis>Артрит тазобедренного сустава</diagnosis>
+  </pet_record>
+  <pet_record>
+    <pet_name>Соня</pet_name>
+    <birth_date>2022-07-19</birth_date>
+    <last_visit_date>2026-03-30</last_visit_date>
+    <vet_name>Романова Виктория Олеговна</vet_name>
+    <diagnosis>Вакцинация от бешенства</diagnosis>
+  </pet_record>
+  <pet_record>
+    <pet_name>Снежка</pet_name>
+    <birth_date>2019-08-14</birth_date>
+    <last_visit_date>2026-03-25</last_visit_date>
+    <vet_name>Лебедева Наталья Юрьевна</vet_name>
+    <diagnosis>Профилактическая обработка</diagnosis>
+  </pet_record>
+  <pet_record>
+    <pet_name>Тайсон</pet_name>
+    <birth_date>2020-08-14</birth_date>
+    <last_visit_date>2026-03-20</last_visit_date>
+    <vet_name>Давыдов Максим Артемович</vet_name>
+    <diagnosis>Ожирение I степени</diagnosis>
+  </pet_record>
+  <pet_record>
+    <pet_name>Луна</pet_name>
+    <birth_date>2021-11-10</birth_date>
+    <last_visit_date>2026-03-15</last_visit_date>
+    <vet_name>Иванов Петр Николаевич</vet_name>
+    <diagnosis>Аллергический дерматит</diagnosis>
+  </pet_record>
+</pet_records>
