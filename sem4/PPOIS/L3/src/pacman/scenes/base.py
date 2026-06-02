@@ -1,0 +1,16 @@
+from typing import Optional
+
+import pygame
+
+
+class Scene:
+    next_scene: Optional["Scene"] = None
+
+    def __init__(self, ctx) -> None:
+        self.ctx = ctx  # shared App context
+
+    def enter(self) -> None: ...
+    def leave(self) -> None: ...
+    def handle_event(self, event: pygame.event.Event) -> None: ...
+    def update(self, dt: float) -> None: ...
+    def draw(self, screen: pygame.Surface) -> None: ...

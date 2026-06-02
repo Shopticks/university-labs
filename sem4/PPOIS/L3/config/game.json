@@ -1,0 +1,60 @@
+{
+  "window": {
+    "width": 672,
+    "height": 864,
+    "tile": 24,
+    "fps": 1000,
+    "title": "Pac-Man"
+  },
+  "pacman": {
+    "speed_tiles_per_sec": 8.0,
+    "frightened_eat_speed_multiplier": 1.0,
+    "death_animation_seconds": 1.6,
+    "ready_seconds": 1.5,
+    "lives": 3,
+    "animation_fps": 12
+  },
+  "ghosts": {
+    "scatter_chase_pattern_seconds": [7, 20, 7, 20, 5, 20, 5, 999999],
+    "frightened_seconds": 7,
+    "frightened_blink_seconds": 2,
+    "speed_normal_tiles_per_sec": 7.5,
+    "speed_frightened_tiles_per_sec": 4.0,
+    "speed_eaten_tiles_per_sec": 14.0,
+    "speed_tunnel_tiles_per_sec": 4.5,
+    "release_pellet_thresholds": {
+      "blinky": 0,
+      "pinky": 0,
+      "inky": 30,
+      "clyde": 60
+    },
+    "animation_fps": 8
+  },
+  "scoring": {
+    "pellet": 10,
+    "power_pellet": 50,
+    "ghost_chain": [200, 400, 800, 1600],
+    "fruit": {"cherry": 100, "strawberry": 300},
+    "extra_life_at": 10000
+  },
+  "fruits": {
+    "spawn_pellet_thresholds": [70, 170],
+    "lifetime_seconds": 10,
+    "kinds": ["cherry", "strawberry"]
+  },
+  "effects": {
+    "fruit_speed_boost_seconds": 5,
+    "fruit_speed_multiplier": 1.5,
+    "fruit_freeze_seconds": 4
+  },
+  "maps": [
+    {"name": "Classic", "path": "config/maps/classic.json"},
+    {"name": "Mirror",  "path": "config/maps/mirror.json"}
+  ],
+  "highscores_path": "save/highscores.json",
+  "highscores_limit": 10,
+  "audio": {
+    "music_volume": 0.7,
+    "sfx_volume": 0.35
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "name": "Mirror",
+  "cols": 28,
+  "rows": 31,
+  "rows_layout": [
+    "XXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "Xo......XX........XX......oX",
+    "X.XXXXX.XX.XXXXXX.XX.XXXXX.X",
+    "X..........................X",
+    "X.XX.XXXX.XXXXXXXX.XXXX.XX.X",
+    "X.XX.XXXX.XXXXXXXX.XXXX.XX.X",
+    "X.XX..............XX....XX.X",
+    "X.XXXX.XX.XXXXXXXX.XX.XXXX.X",
+    "X......XX....XX....XX......X",
+    "XXXXXX.XXXXX.XX.XXXXX.XXXXXX",
+    "XXXXXX.XXXXX.XX.XXXXX.XXXXXX",
+    "XXXXXX.XX          XX.XXXXXX",
+    "XXXXXX.XX XXX--XXX XX.XXXXXX",
+    "XXXXXX.XX X      X XX.XXXXXX",
+    "T     .   X      X   .     T",
+    "XXXXXX.XX X      X XX.XXXXXX",
+    "XXXXXX.XX XXXXXXXX XX.XXXXXX",
+    "XXXXXX.XX          XX.XXXXXX",
+    "XXXXXX.XXXXX.XX.XXXXX.XXXXXX",
+    "XXXXXX.XXXXX.XX.XXXXX.XXXXXX",
+    "X......XX....XX....XX......X",
+    "X.XXXX.XX.XXXXXXXX.XX.XXXX.X",
+    "X....XX............XX......X",
+    "Xo.X.XX.XX.X.XX.X.XX.XX.X.oX",
+    "XX.X....XXXX.XX.XXXX....X.XX",
+    "X.....XX..............XX...X",
+    "X.XXX.XX.XXXXXXXX.XX..XX.X.X",
+    "X.XXX.XX.XXXXXXXX.XX..XX.X.X",
+    "X..........................X",
+    "X.XXXXXXXXXXXXXXXXXXXXXXXX.X",
+    "XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+  ],
+  "pacman_start": [13, 25],
+  "ghost_house": {
+    "door": [[13, 12], [14, 12]],
+    "spawn": {
+      "blinky": [13, 11],
+      "pinky":  [13, 14],
+      "inky":   [11, 14],
+      "clyde":  [16, 14]
+    }
+  },
+  "scatter_corners": {
+    "blinky": [25, 0],
+    "pinky":  [2, 0],
+    "inky":   [27, 30],
+    "clyde":  [0, 30]
+  },
+  "tunnels_row": 14,
+  "fruit_position": [13, 17]
+}
